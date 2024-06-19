@@ -1,0 +1,64 @@
+前端
+	基础知识  
+		1. HTML
+		2. CSS 
+		3. JavaScript
+		4. TypeScript
+	框架相关
+		1. Angular
+		2. React
+		3. Vue
+	微前端
+		1. QiankunJs
+	
+	工程化   
+		1. Webpack
+		2. Vite
+	前端可视化   
+		1. Echarts使用  
+		2. 阿里图表AntV
+	
+
+
+后端
+	Java  基础知识
+	Tomcat 相关知识
+	Java框架  
+		1. SpringBoot
+		2. SpringMVC
+	Java 并发编程
+	MAVEN相关知识
+	SQL相关知识
+	数据库数据表设计
+	Nginx相关知识
+	网络相关知识
+	Linux知识
+
+交互
+	1. 设计原则
+	2. 设计规范
+	3. 设计工具
+
+产品
+	大数据相关知识
+		Hadoop框架
+			包括HDFS、MapReduce、YARN
+		Spark框架
+			包括Spark Core、Spark SQL、Spark Streaming等
+		数据存储系统
+			Hive、Hbase
+		数据处理工具
+			Sqoop、Flume、Kafka
+		学习当前华为云所有云服务实现原理
+	AI相关知识
+	
+	竞品分析
+		产品交互
+		商业模式
+		产品架构
+
+	
+工具使用
+	UX设计工具 MAC电脑Sketch、Axure RP
+	后端表等设计画图工具
+	IDEA 后端开发工具使用
