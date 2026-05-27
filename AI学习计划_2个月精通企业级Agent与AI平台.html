@@ -1,0 +1,2637 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 工程师 2 个月精进计划 v2 — 完整代码 + 架构图 + 时序图</title>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true, theme:'dark', themeVariables:{primaryColor:'#58a6ff',primaryTextColor:'#c9d1d9',lineColor:'#58a6ff',secondaryColor:'#3fb950',tertiaryColor:'#a371f7'}});</script>
+<style>
+:root{--bg:#0d1117;--card:#161b22;--border:#30363d;--text:#c9d1d9;--muted:#8b949e;--blue:#58a6ff;--green:#3fb950;--yellow:#d29922;--red:#f78166;--purple:#a371f7}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans SC',sans-serif;line-height:1.7}
+.container{max-width:1200px;margin:0 auto;padding:20px}
+
+header{text-align:center;padding:60px 20px 50px;background:linear-gradient(135deg,#0d1117,#161b22,#0d1117);border-bottom:1px solid var(--border)}
+header h1{font-size:2.4em;background:linear-gradient(135deg,var(--blue),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:12px}
+header .sub{color:var(--muted);font-size:1.1em}
+
+nav{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:30px 0;position:sticky;top:10px;z-index:100;background:var(--bg);padding:16px;border-radius:12px;border:1px solid var(--border)}
+nav a{text-decoration:none;color:var(--text);background:var(--card);border:1px solid var(--border);padding:6px 14px;border-radius:20px;font-size:.85em;transition:all .2s;white-space:nowrap}
+nav a:hover{border-color:var(--blue);color:var(--blue)}
+
+section{margin:40px 0}
+h2{font-size:1.5em;border-left:4px solid var(--blue);padding-left:14px;margin:40px 0 20px;color:#fff}
+h3{font-size:1.15em;color:var(--blue);margin:24px 0 10px}
+h4{color:#fff;margin:16px 0 6px;font-size:.95em}
+
+.card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:24px;margin:16px 0}
+.card p{margin:6px 0}
+
+.tag{display:inline-block;padding:3px 10px;border-radius:12px;font-size:.78em;font-weight:600;margin:2px 4px 2px 0}
+.t1{background:#1f6feb33;color:#58a6ff;border:1px solid #1f6feb55}
+.t2{background:#d2992233;color:#d29922;border:1px solid #d2992255}
+.t3{background:#a371f733;color:#a371f7;border:1px solid #a371f755}
+.t4{background:#3fb95033;color:#3fb950;border:1px solid #3fb95055}
+.t5{background:#f7816633;color:#f78166;border:1px solid #f7816655}
+
+table{width:100%;border-collapse:collapse;margin:12px 0;font-size:.9em}
+th,td{padding:10px 14px;text-align:left;border-bottom:1px solid var(--border);vertical-align:top}
+th{background:#21262d;color:#fff;font-weight:600;white-space:nowrap}
+tr:hover td{background:#1c2128}
+
+pre{background:#0d1117;border:1px solid var(--border);border-radius:8px;padding:16px;overflow-x:auto;margin:12px 0;font-size:.85em}
+code{font-family:'Cascadia Code','Fira Code','JetBrains Mono',Consolas,monospace;font-size:.88em}
+pre code{color:#c9d1d9}
+
+.highlight{background:#1f6feb15;border-left:3px solid var(--blue);padding:12px 16px;border-radius:0 8px 8px 0;margin:12px 0;font-size:.9em}
+.warning{background:#d2992215;border-left:3px solid var(--yellow);padding:12px 16px;border-radius:0 8px 8px 0;margin:12px 0;font-size:.9em}
+
+.mermaid{margin:20px 0;text-align:center}
+.mermaid svg{max-width:100%}
+
+.badge{display:inline-block;background:var(--blue);color:#000;padding:2px 10px;border-radius:4px;font-weight:700;font-size:.82em;margin-right:8px}
+ul,ol{padding-left:22px}
+li{margin:4px 0}
+
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:768px){.two-col{grid-template-columns:1fr}}
+
+footer{text-align:center;padding:40px;color:var(--muted);border-top:1px solid var(--border);margin-top:50px;font-size:.85em}
+
+.skill-bar{background:#21262d;border-radius:6px;height:8px;margin:6px 0 14px;overflow:hidden}
+.skill-fill{height:100%;border-radius:6px;background:linear-gradient(90deg,var(--blue),var(--purple))}
+
+details{margin:12px 0}
+details summary{cursor:pointer;color:var(--blue);font-weight:600;padding:8px 0}
+details summary:hover{color:#fff}
+</style>
+</head>
+<body>
+
+<header>
+<h1>AI 工程师 2 个月精进计划 v2</h1>
+<p class="sub">目标：独立构建企业级 Agent 与 AI 平台 | 包含：完整代码 Demo + 架构图 + 时序图</p>
+<p style="color:var(--muted);margin-top:8px">每天 4-6 小时 | 8 周 | 从 LLM 基础到企业 AI 平台架构</p>
+</header>
+
+<div class="container">
+
+<nav>
+<a href="#w0">W0 准备</a><a href="#w1">W1 LLM核心</a><a href="#w2">W2 Prompt&amp;RAG</a>
+<a href="#w3">W3 Agent框架</a><a href="#w4">W4 高级Agent</a>
+<a href="#w5">W5 MCP&amp;工具</a><a href="#w6">W6 产品&amp;架构</a>
+<a href="#w7">W7 企业实战</a><a href="#w8">W8 综合项目</a>
+<a href="#skill">能力图谱</a><a href="#glossary">概念词汇</a>
+</nav>
+
+<!-- ====== W0 ====== -->
+<section id="w0">
+<h2>第 0 周：环境搭建与 Python 强化</h2>
+
+<div class="card">
+<h3>环境配置清单</h3>
+<table>
+<tr><th>工具</th><th>安装命令</th><th>验证</th></tr>
+<tr><td>Python 3.11+</td><td><code>winget install Python.Python.3.11</code> 或 <code>pyenv install 3.11</code></td><td><code>python --version</code></td></tr>
+<tr><td>uv (快速包管理)</td><td><code>pip install uv</code> 或 <code>winget install astral.uv</code></td><td><code>uv --version</code></td></tr>
+<tr><td>Docker Desktop</td><td><code>winget install Docker.DockerDesktop</code></td><td><code>docker --version</code></td></tr>
+<tr><td>VS Code</td><td><code>winget install Microsoft.VisualStudioCode</code></td><td>装 Python/Copilot/Jupyter 插件</td></tr>
+<tr><td>Git</td><td><code>winget install Git.Git</code></td><td><code>git --version</code></td></tr>
+</table>
+<div class="highlight"><strong>API Key 准备：</strong>OpenAI (platform.openai.com) 充值 $10 | Anthropic (console.anthropic.com) 充值 $5 | 都设好环境变量 <code>OPENAI_API_KEY</code> 和 <code>ANTHROPIC_API_KEY</code></div>
+</div>
+
+<div class="card">
+<h3>Python 知识点速通 <span class="tag t1">基础</span></h3>
+<div class="two-col">
+<div>
+<h4>必须熟练</h4>
+<ul>
+<li><strong>类型注解：</strong><code>def process(text: str) -> dict[str, Any]:</code></li>
+<li><strong>Pydantic v2：</strong><code>class User(BaseModel): name: str; age: int</code></li>
+<li><strong>异步编程：</strong><code>async def fetch(): async with httpx.AsyncClient() as c: ...</code></li>
+<li><strong>装饰器：</strong><code>@tool / @retry / @traceable</code> 理解原理</li>
+</ul>
+</div>
+<div>
+<h4>了解即可</h4>
+<ul>
+<li>生成器 yield / yield from</li>
+<li>上下文管理器 __enter__ / __exit__</li>
+<li>functools (lru_cache, partial, wraps)</li>
+<li>logging 模块配置 (JSON/文本格式)</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ====== W1 ====== -->
+<section id="w1">
+<h2>第 1 周：LLM 核心基础 — 模型是如何工作的</h2>
+
+<div class="card">
+<h3><span class="badge">D1-2</span>Token · Context · Embedding · Function Calling <span class="tag t1">概念</span></h3>
+
+<h4>1. Token 与分词原理</h4>
+<p>LLM 看到的不是"字"，而是 token。英文 1 token ≈ 0.75 词，中文 1 字 ≈ 1.5-2 tokens。这就是为什么中文 API 调用更贵。</p>
+
+<pre><code># Demo: Token 可视化工具
+import tiktoken
+
+def token_demo():
+    enc = tiktoken.encoding_for_model("gpt-4o")
+
+    texts = {
+        "英文": "The quick brown fox jumps over the lazy dog.",
+        "中文": "敏捷的棕色狐狸跳过了那只懒狗。",
+        "代码": "def fibonacci(n):\n    if n <= 1: return n\n    return fibonacci(n-1) + fibonacci(n-2)",
+        "混合": "请帮我写一个 Python 函数来计算 Fibonacci 数列。"
+    }
+
+    for label, text in texts.items():
+        tokens = enc.encode(text)
+        decoded = [enc.decode([t]) for t in tokens]
+        print(f"\n{'='*60}")
+        print(f"【{label}】字符数: {len(text)} | Token 数: {len(tokens)} | 比例: {len(tokens)/len(text):.2f}")
+        print(f"Token 列表: {tokens[:15]}{'...' if len(tokens)>15 else ''}")
+        print(f"解码预览: {''.join(decoded[:10])}...")
+
+    # 成本计算
+    prices = {"gpt-4o": (2.50, 10.00), "gpt-4o-mini": (0.15, 0.60),
+              "claude-opus-4": (15.00, 75.00), "deepseek-v3": (0.27, 1.10)}
+    input_tokens, output_tokens = 1000, 500
+    for model, (in_price, out_price) in prices.items():
+        cost = (input_tokens/1_000_000)*in_price + (output_tokens/1_000_000)*out_price
+        print(f"  {model:20s}: ${cost:.4f} / 1K in + 500 out")
+
+token_demo()</code></pre>
+
+<h4>2. Embedding 语义向量</h4>
+<p>Embedding 将文本映射到高维空间中的点，语义相似的文本在空间中距离近。</p>
+
+<pre><code># Demo: 迷你语义搜索引擎
+import numpy as np
+from openai import OpenAI
+client = OpenAI()
+
+def get_embedding(text: str, model="text-embedding-3-small") -> list[float]:
+    return client.embeddings.create(input=[text], model=model).data[0].embedding
+
+def cosine_similarity(a: list[float], b: list[float]) -> float:
+    a_np, b_np = np.array(a), np.array(b)
+    return float(np.dot(a_np, b_np) / (np.linalg.norm(a_np) * np.linalg.norm(b_np)))
+
+# 文档库
+docs = [
+    "Python 是一种高级编程语言，广泛用于数据科学和 AI 开发。",
+    "红烧肉是一道经典的中国菜，肥而不腻，入口即化。",
+    "LangChain 是构建 LLM 应用的主流框架，支持 RAG 和 Agent。",
+    "意大利面需要煮到 al dente 口感，搭配番茄酱或奶油酱。",
+    "Transformer 架构是 GPT 系列模型的基础，核心是自注意力机制。",
+]
+
+query = "我想学习 AI 开发框架"
+query_emb = get_embedding(query)
+
+results = []
+for i, doc in enumerate(docs):
+    doc_emb = get_embedding(doc)
+    score = cosine_similarity(query_emb, doc_emb)
+    results.append((score, doc))
+
+results.sort(key=lambda x: x[0], reverse=True)
+print(f'查询: "{query}"\n')
+for rank, (score, doc) in enumerate(results, 1):
+    print(f"  #{rank} [相似度: {score:.4f}] {doc}")</code></pre>
+
+<h4>3. Function Calling (Tool Use) 机制</h4>
+<p>Function Calling 是 Agent 的"手"——让 LLM 可以调用外部工具。模型不执行函数，而是<strong>输出 JSON 表示要调哪个函数和什么参数</strong>，由你的代码实际执行。</p>
+
+<pre><code># Demo: Function Calling 底层原理演示
+from openai import OpenAI
+import json
+
+client = OpenAI()
+
+# 定义工具 schema (JSON Schema 格式)
+tools = [{
+    "type": "function",
+    "function": {
+        "name": "get_weather",
+        "description": "获取指定城市的实时天气信息",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "city": {"type": "string", "description": "城市名称，如 Beijing"},
+                "unit": {"type": "string", "enum": ["celsius", "fahrenheit"], "default": "celsius"}
+            },
+            "required": ["city"]
+        }
+    }
+}]
+
+# 模型不执行函数，只输出函数调用请求
+response = client.chat.completions.create(
+    model="gpt-4o-mini",
+    messages=[{"role": "user", "content": "北京现在多少度？"}],
+    tools=tools,
+    tool_choice="auto"
+)
+
+msg = response.choices[0].message
+if msg.tool_calls:
+    for tc in msg.tool_calls:
+        print(f"模型想调用函数: {tc.function.name}")
+        print(f"参数: {json.loads(tc.function.arguments)}")
+        # 你的代码在这里执行实际函数，然后把结果返回给模型
+else:
+    print(f"直接回答: {msg.content}")</code></pre>
+
+<h4>4. Streaming (SSE 流式输出)</h4>
+<pre><code># Demo: 流式输出 + 首 token 延迟测量
+import time, asyncio
+from openai import AsyncOpenAI
+
+async def stream_demo():
+    client = AsyncOpenAI()
+    start = time.perf_counter()
+    first_token_time = None
+    token_count = 0
+
+    stream = await client.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=[{"role": "user", "content": "用 300 字解释什么是 Transformer 架构"}],
+        stream=True
+    )
+
+    async for chunk in stream:
+        if chunk.choices[0].delta.content:
+            token_count += 1
+            if first_token_time is None:
+                first_token_time = time.perf_counter()
+                print(f"⏱ TTFT (首Token延迟): {(first_token_time - start)*1000:.0f}ms")
+            print(chunk.choices[0].delta.content, end="", flush=True)
+
+    total = time.perf_counter() - start
+    print(f"\n\n📊 统计: {token_count} tokens | 总耗时: {total:.1f}s | TPS: {token_count/(total - (first_token_time-start)):.0f} tok/s")
+
+asyncio.run(stream_demo())</code></pre>
+</div>
+
+<div class="card">
+<h3><span class="badge">D3-4</span>模型全景对比 <span class="tag t1">概念</span></h3>
+
+<pre><code># Demo: 统一 LLM 客户端 — 一行代码切换模型
+from abc import ABC, abstractmethod
+from dataclasses import dataclass
+from typing import AsyncIterator
+from openai import AsyncOpenAI
+from anthropic import AsyncAnthropic
+import os
+
+@dataclass
+class LLMResponse:
+    content: str
+    model: str
+    input_tokens: int
+    output_tokens: int
+    duration_ms: float
+
+class BaseLLMClient(ABC):
+    @abstractmethod
+    async def chat(self, messages: list[dict], **kwargs) -> LLMResponse: ...
+    @abstractmethod
+    async def chat_stream(self, messages: list[dict], **kwargs) -> AsyncIterator[str]: ...
+
+class OpenAIClient(BaseLLMClient):
+    def __init__(self, model="gpt-4o-mini"):
+        self.model = model
+        self.client = AsyncOpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+
+    async def chat(self, messages, **kwargs):
+        import time; start = time.perf_counter()
+        resp = await self.client.chat.completions.create(model=self.model, messages=messages, **kwargs)
+        elapsed = (time.perf_counter() - start) * 1000
+        return LLMResponse(content=resp.choices[0].message.content, model=self.model,
+                          input_tokens=resp.usage.prompt_tokens, output_tokens=resp.usage.completion_tokens,
+                          duration_ms=elapsed)
+
+    async def chat_stream(self, messages, **kwargs):
+        stream = await self.client.chat.completions.create(model=self.model, messages=messages, stream=True, **kwargs)
+        async for chunk in stream:
+            if chunk.choices[0].delta.content:
+                yield chunk.choices[0].delta.content
+
+class AnthropicClient(BaseLLMClient):
+    def __init__(self, model="claude-sonnet-4-6"):
+        self.model = model
+        self.client = AsyncAnthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
+
+    async def chat(self, messages, **kwargs):
+        import time; start = time.perf_counter()
+        system = next((m["content"] for m in messages if m["role"]=="system"), "You are helpful.")
+        user_msgs = [m for m in messages if m["role"]!="system"]
+        resp = await self.client.messages.create(model=self.model, system=system, messages=user_msgs,
+                                                  max_tokens=kwargs.get("max_tokens", 4096))
+        elapsed = (time.perf_counter() - start) * 1000
+        return LLMResponse(content=resp.content[0].text, model=self.model,
+                          input_tokens=resp.usage.input_tokens, output_tokens=resp.usage.output_tokens,
+                          duration_ms=elapsed)
+
+    async def chat_stream(self, messages, **kwargs):
+        system = next((m["content"] for m in messages if m["role"]=="system"), "You are helpful.")
+        user_msgs = [m for m in messages if m["role"]!="system"]
+        async with self.client.messages.stream(model=self.model, system=system, messages=user_msgs,
+                                                max_tokens=kwargs.get("max_tokens", 4096)) as stream:
+            async for text in stream.text_stream:
+                yield text
+
+# 使用: client = OpenAIClient("gpt-4o") 或者 AnthropicClient("claude-opus-4-7")
+# response = await client.chat([{"role": "user", "content": "Hello!"}])</code></pre>
+</div>
+
+<div class="card">
+<h3><span class="badge">D5-7</span>LLM 核心概念全景图</h3>
+<div class="mermaid">
+graph TB
+    subgraph "用户层"
+        A[用户输入文本]
+    end
+    subgraph "预处理"
+        B[Tokenizer<br/>BPE分词] --> C[Token IDs]
+        C --> D[Embedding<br/>向量化]
+    end
+    subgraph "模型推理"
+        D --> E[Transformer 层<br/>Self-Attention + FFN]
+        E --> F[多次迭代<br/>逐 token 生成]
+        F --> G{达到停止条件?}
+        G -->|否| E
+    end
+    subgraph "后处理"
+        G -->|是| H[Logits → 概率分布]
+        H --> I{采样策略}
+        I -->|Temperature=0| J[贪心/Greedy]
+        I -->|Temperature>0| K[Top-P + Top-K 采样]
+        J --> L[输出 Token]
+        K --> L
+    end
+    subgraph "输出"
+        L --> M[Detokenizer]
+        M --> N[最终文本]
+    end
+    style A fill:#1f6feb33,stroke:#58a6ff
+    style N fill:#3fb95033,stroke:#3fb950
+</div>
+</div>
+</section>
+
+<!-- ====== W2 ====== -->
+<section id="w2">
+<h2>第 2 周：Prompt Engineering & RAG 全链路</h2>
+
+<div class="card">
+<h3><span class="badge">D8-9</span>Prompt Engineering 体系 <span class="tag t1">概念</span> <span class="tag t4">动手</span></h3>
+
+<h4>Chain-of-Thought (CoT) 与 ReAct 模式</h4>
+<pre><code># Demo: 对比不同 Prompt 策略的效果
+import asyncio, json
+from openai import AsyncOpenAI
+client = AsyncOpenAI()
+
+async def test_prompt_strategy(name: str, messages: list[dict]) -> str:
+    resp = await client.chat.completions.create(model="gpt-4o-mini", messages=messages, temperature=0)
+    return resp.choices[0].message.content
+
+# 策略 1: Zero-Shot (直接问)
+zero_shot = [{"role": "user", "content": "23 * 47 + 156 - 89 / 3 等于多少？"}]
+
+# 策略 2: Chain-of-Thought (引导逐步推理)
+cot = [{"role": "user", "content": """请逐步计算 23 * 47 + 156 - 89 / 3。
+规则：
+1. 每一步只做一个运算
+2. 先乘除后加减
+3. 写出每一步的中间结果
+4. 最后给出最终答案，格式为: 答案: [数字]"""}]
+
+# 策略 3: Few-Shot (给示例)
+few_shot = [{"role": "user", "content": """示例:
+Q: 12 * 5 + 20 - 8 / 2
+A: 步骤1: 12 * 5 = 60; 步骤2: 8 / 2 = 4; 步骤3: 60 + 20 = 80; 步骤4: 80 - 4 = 76; 答案: 76
+
+Q: 6 * 8 + 30 - 15 / 5
+A: 步骤1: 6 * 8 = 48; 步骤2: 15 / 5 = 3; 步骤3: 48 + 30 = 78; 步骤4: 78 - 3 = 75; 答案: 75
+
+现在请用同样的方法计算:
+Q: 23 * 47 + 156 - 89 / 3"""}]
+
+async def main():
+    for name, msgs in [("Zero-Shot", zero_shot), ("CoT", cot), ("Few-Shot", few_shot)]:
+        result = await test_prompt_strategy(name, msgs)
+        print(f"\n{'='*60}\n【{name}】\n{result}")
+
+asyncio.run(main())</code></pre>
+
+<h4>结构化输出 (Structured Outputs)</h4>
+<pre><code># Demo: 用 Pydantic 定义输出 schema，让 LLM 返回结构化数据
+from pydantic import BaseModel, Field
+from typing import Literal
+
+class SentimentAnalysis(BaseModel):
+    sentiment: Literal["positive", "negative", "neutral"]
+    confidence: float = Field(ge=0, le=1, description="置信度 0-1")
+    key_phrases: list[str] = Field(max_length=5, description="关键短语")
+    summary: str = Field(max_length=100, description="一句话总结")
+
+# 使用 OpenAI Structured Outputs (gpt-4o-2024-08-06+)
+async def analyze_sentiment(text: str) -> SentimentAnalysis:
+    resp = await client.beta.chat.completions.parse(
+        model="gpt-4o-mini",
+        messages=[{"role": "system", "content": "分析文本情感"},
+                  {"role": "user", "content": text}],
+        response_format=SentimentAnalysis,
+    )
+    return resp.choices[0].message.parsed
+
+# result = await analyze_sentiment("这个产品质量太差了，但是客服态度还不错")
+# print(result.model_dump_json(indent=2))</code></pre>
+</div>
+
+<div class="card">
+<h3><span class="badge">D10-11</span>RAG 全链路 — 从文档到答案 <span class="tag t3">架构</span></h3>
+
+<h4>RAG 架构全链路时序图</h4>
+<div class="mermaid">
+sequenceDiagram
+    actor User as 用户
+    participant App as RAG 应用
+    participant Loader as 文档加载器
+    participant Splitter as 文本分割器
+    participant Embedder as Embedding 模型
+    participant VDB as 向量数据库
+    participant Retriever as 检索器
+    participant Reranker as 重排序器
+    participant LLM as LLM
+
+    Note over Loader,VDB: === 离线索引阶段 (Ingestion) ===
+    App->>Loader: 加载文档 (PDF/Word/MD)
+    Loader->>Splitter: 原始文本
+    Splitter->>Splitter: 按语义分块 (chunk_size=512, overlap=50)
+    Splitter->>Embedder: 文本块列表
+    Embedder->>VDB: 向量 + 元数据
+    VDB-->>App: 索引完成
+
+    Note over Retriever,LLM: === 在线查询阶段 (Query) ===
+    User->>App: "去年Q3的销售额是多少？"
+    App->>Embedder: 将查询转为向量
+    Embedder-->>App: query_embedding
+    App->>Retriever: 向量检索 Top-20
+    Retriever->>VDB: similarity_search(query_emb, k=20)
+    VDB-->>Retriever: 20 个相关文档块
+    Retriever-->>App: 候选文档
+    App->>Reranker: 对 20 个候选重排序
+    Reranker-->>App: Top-5 最相关文档
+    App->>LLM: Prompt + Top-5 文档 + 用户问题
+    LLM-->>App: 基于文档的答案 + 引用来源
+    App-->>User: 答案 + 来源引用
+</div>
+
+<h4>完整 RAG Pipeline 代码</h4>
+<pre><code># Demo: 150 行实现完整 RAG 系统
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_community.document_loaders import PyPDFLoader, TextLoader, UnstructuredMarkdownLoader
+from langchain_community.vectorstores import Chroma
+from langchain_openai import OpenAIEmbeddings, ChatOpenAI
+from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.runnables import RunnablePassthrough
+from langchain_core.output_parsers import StrOutputParser
+import os
+
+class SimpleRAG:
+    """最小化 RAG 系统 — 清晰展示每个环节"""
+
+    def __init__(self, persist_dir="./chroma_db"):
+        # 1. Embedding 模型: 文本 → 向量
+        self.embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
+        # 2. LLM: 生成最终答案
+        self.llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
+        # 3. 向量数据库: 存储和检索
+        self.vectorstore = None
+        self.persist_dir = persist_dir
+
+    def ingest_documents(self, file_paths: list[str]) -> int:
+        """离线阶段: 加载文档 → 分块 → 向量化 → 存储"""
+        all_docs = []
+        for fp in file_paths:
+            if fp.endswith('.pdf'):
+                loader = PyPDFLoader(fp)
+            elif fp.endswith('.md'):
+                loader = UnstructuredMarkdownLoader(fp)
+            else:
+                loader = TextLoader(fp)
+            all_docs.extend(loader.load())
+            print(f"  加载: {fp} ({len(all_docs)} 页/段)")
+
+        # 文本分割: 块大小 512 tokens, 重叠 50 tokens
+        splitter = RecursiveCharacterTextSplitter(
+            chunk_size=512, chunk_overlap=50,
+            separators=["\n\n", "\n", "。", ".", " ", ""]
+        )
+        chunks = splitter.split_documents(all_docs)
+        print(f"  分块: {len(chunks)} 个文本块")
+
+        # 向量化 + 存入 ChromaDB
+        self.vectorstore = Chroma.from_documents(
+            documents=chunks, embedding=self.embeddings,
+            persist_directory=self.persist_dir
+        )
+        return len(chunks)
+
+    def query(self, question: str, top_k: int = 5, use_rerank: bool = False) -> dict:
+        """在线阶段: 检索 → 重排序 → 生成"""
+        if self.vectorstore is None:
+            self.vectorstore = Chroma(persist_directory=self.persist_dir,
+                                       embedding_function=self.embeddings)
+
+        # Step 1: 基础检索 (向量相似度)
+        retriever = self.vectorstore.as_retriever(
+            search_type="mmr",  # MMR: 最大边际相关 — 兼顾相关性和多样性
+            search_kwargs={"k": top_k, "fetch_k": top_k * 4}
+        )
+        docs = retriever.invoke(question)
+
+        # Step 2 (可选): Cohere Rerank (需要 COHERE_API_KEY)
+        if use_rerank and os.getenv("COHERE_API_KEY"):
+            from langchain_cohere import CohereRerank
+            reranker = CohereRerank(top_n=3)
+            docs = reranker.compress_documents(docs, question)
+
+        # Step 3: 拼接上下文 + Prompt → LLM 生成
+        context = "\n\n---\n\n".join(
+            f"[来源 {i+1}] {d.page_content}" for i, d in enumerate(docs)
+        )
+
+        prompt = ChatPromptTemplate.from_messages([
+            ("system", """你是企业知识库助手。严格基于提供的文档内容回答问题。
+如果文档中没有相关信息，请明确说"文档中未找到相关信息"。
+在回答末尾列出引用的来源编号。"""),
+            ("user", "参考资料:\n{context}\n\n问题: {question}")
+        ])
+
+        chain = prompt | self.llm | StrOutputParser()
+        answer = chain.invoke({"context": context, "question": question})
+
+        return {
+            "question": question,
+            "answer": answer,
+            "sources": [
+                {"content": d.page_content[:200] + "...",
+                 "metadata": d.metadata}
+                for d in docs
+            ]
+        }
+
+# 使用示例
+# rag = SimpleRAG()
+# rag.ingest_documents(["./docs/product_manual.pdf", "./docs/faq.md"])
+# result = rag.query("产品保修期是多长时间？", use_rerank=True)
+# print(result["answer"])
+# for s in result["sources"]:
+#     print(f"  📄 {s['metadata']}: {s['content']}")</code></pre>
+</div>
+
+<div class="card">
+<h3><span class="badge">D12-14</span>高级 RAG 策略 + RAGAS 评估 <span class="tag t4">动手</span></h3>
+
+<h4>Graph RAG 架构</h4>
+<div class="mermaid">
+flowchart LR
+    subgraph "传统 RAG"
+        A1[文档] --> B1[Chunk]
+        B1 --> C1[向量检索]
+        C1 --> D1[LLM 生成]
+    end
+    subgraph "Graph RAG (Microsoft)"
+        A2[文档] --> B2[实体/关系抽取]
+        B2 --> C2[知识图谱构建]
+        C2 --> D2[社区检测]
+        D2 --> E2[社区摘要生成]
+    end
+    subgraph "查询"
+        Q[用户问题] --> F{查询类型}
+        F -->|事实查询| C1
+        F -->|全局总结| E2
+        C1 --> G[答案合成]
+        E2 --> G
+    end
+    style A1 fill:#3fb95033
+    style A2 fill:#a371f733
+    style G fill:#58a6ff33
+</div>
+
+<h4>RAGAS 评估代码</h4>
+<pre><code># Demo: 用 RAGAS 评估 RAG 质量
+from datasets import Dataset
+from ragas import evaluate
+from ragas.metrics import (
+    faithfulness,        # 答案是否忠实于检索到的文档 (0-1)
+    answer_relevancy,    # 答案是否与问题相关 (0-1)
+    context_recall,      # 检索到的文档覆盖了多少必要信息
+    context_precision,   # 检索到的文档中有多少是真正相关的
+)
+
+def evaluate_rag(questions: list[str], answers: list[str],
+                 contexts: list[list[str]], ground_truths: list[str] = None):
+    """评估 RAG 系统的检索和生成质量"""
+    data = {
+        "question": questions,
+        "answer": answers,
+        "contexts": contexts,
+    }
+    if ground_truths:
+        data["ground_truth"] = ground_truths
+
+    dataset = Dataset.from_dict(data)
+    metrics = [faithfulness, answer_relevancy, context_recall, context_precision]
+    result = evaluate(dataset, metrics=metrics)
+
+    print("RAG 质量评估报告")
+    print(f"  Faithfulness (忠实度):      {result['faithfulness']:.3f}")
+    print(f"  Answer Relevancy (答案相关): {result['answer_relevancy']:.3f}")
+    print(f"  Context Recall (召回率):     {result['context_recall']:.3f}")
+    print(f"  Context Precision (精确率):  {result['context_precision']:.3f}")
+    return result
+
+# evaluate_rag(questions, answers, contexts)</code></pre>
+
+<h4>高级 RAG 策略对比实验</h4>
+<pre><code># Demo: 对比不同 RAG 策略
+async def compare_rag_strategies(question: str, vectorstore):
+    """对比 4 种检索策略的效果"""
+    strategies = {
+        "Naive (Top-5)": {"k": 5},
+        "MMR (多样性)": {"k": 5, "search_type": "mmr", "fetch_k": 20},
+        "Multi-Query": {"k": 5, "use_multi_query": True},  # LLM 生成多个查询变体
+        "HyDE": {"k": 5, "use_hyde": True},  # 先让 LLM 生成假设答案再检索
+    }
+
+    results = {}
+    for name, config in strategies.items():
+        # ... 实现各策略的检索逻辑
+        # retriever = build_retriever(vectorstore, **config)
+        # docs = retriever.invoke(question)
+        results[name] = {"doc_count": len(docs), "docs": docs}
+
+    # 用 RAGAS 对比各策略的 context_recall 和 context_precision
+    return results</code></pre>
+</div>
+</section>
+
+<!-- ====== W3 ====== -->
+<section id="w3">
+<h2>第 3 周：Agent 框架核心 — LangChain + LangGraph 深入</h2>
+
+<div class="card">
+<h3><span class="badge">D15-16</span>LangChain 生态与 LCEL <span class="tag t1">概念</span></h3>
+
+<h4>LCEL (LangChain Expression Language) 核心模式</h4>
+<p>LCEL 用管道符 <code>|</code> 组合组件，类似 Unix pipe。每个组件都是 Runnable，自动获得 streaming、async、batch 能力。</p>
+
+<pre><code># Demo: LCEL 6 种核心模式
+from langchain_core.runnables import (
+    RunnablePassthrough, RunnableLambda, RunnableParallel
+)
+from langchain_core.prompts import ChatPromptTemplate
+from langchain_openai import ChatOpenAI
+from langchain_core.output_parsers import StrOutputParser
+
+llm = ChatOpenAI(model="gpt-4o-mini")
+
+# 模式 1: 简单链 prompt | llm | parser
+simple_chain = (
+    ChatPromptTemplate.from_template("用一句话解释{topic}")
+    | llm
+    | StrOutputParser()
+)
+# result = simple_chain.invoke({"topic": "量子计算"})
+
+# 模式 2: 并行分支 (同时执行多个子任务)
+plan_chain = (ChatPromptTemplate.from_template(
+    "为'{task}'制定3步计划") | llm | StrOutputParser())
+risk_chain = (ChatPromptTemplate.from_template(
+    "'{task}'有哪些风险?") | llm | StrOutputParser())
+parallel_chain = RunnableParallel(plan=plan_chain, risk=risk_chain)
+# result = parallel_chain.invoke({"task": "数据库迁移"})
+
+# 模式 3: Passthrough 保留原始输入
+chain_with_passthrough = RunnableParallel(
+    question=RunnablePassthrough(),
+    answer=(ChatPromptTemplate.from_template("回答: {question}")
+            | llm | StrOutputParser())
+)
+
+# 模式 4: 条件分支 RunnableBranch
+from langchain_core.runnables import RunnableBranch
+branch_chain = RunnableBranch(
+    (lambda x: "退款" in x["query"], refund_handler),
+    (lambda x: "投诉" in x["query"], complaint_handler),
+    default_handler
+)
+
+# 模式 5: Lambda 自定义处理
+chain_with_lambda = simple_chain | RunnableLambda(
+    lambda text: text.upper()
+)
+
+# 模式 6: Fallback 失败降级
+robust_chain = primary_chain.with_fallbacks([backup_chain])
+
+print("LCEL 6 种核心模式已加载!")</code></pre>
+
+<h4>Tool 定义 3 种方式</h4>
+<pre><code># Demo: Agent Tool 的 3 种定义方式
+from langchain_core.tools import tool, StructuredTool
+from pydantic import BaseModel, Field
+
+# 方式 1: @tool 装饰器 (最简洁, 适合简单函数)
+@tool
+def search_web(query: str) -> str:
+    """搜索互联网信息，用于获取最新资讯。"""
+    return f"搜索结果: 关于'{query}'的相关信息..."
+
+@tool
+def calculator(expression: str) -> str:
+    """执行数学计算。支持 + - * / ** sqrt 等运算。"""
+    import math
+    try:
+        result = eval(expression,
+                      {"__builtins__": {}},
+                      {"sqrt": math.sqrt, "math": math})
+        return f"计算结果: {result}"
+    except Exception as e:
+        return f"计算错误: {e}"
+
+# 方式 2: StructuredTool (需要复杂参数schema时)
+class SendEmailInput(BaseModel):
+    to: str = Field(description="收件人邮箱")
+    subject: str = Field(description="邮件主题")
+    body: str = Field(description="邮件正文")
+
+def send_email_fn(to: str, subject: str, body: str) -> str:
+    """发送邮件"""
+    print(f"发送邮件给 {to}: {subject}")
+    return f"邮件已发送给 {to}"
+
+send_email = StructuredTool.from_function(
+    func=send_email_fn,
+    name="send_email",
+    description="发送电子邮件",
+    args_schema=SendEmailInput,
+)
+
+# 方式 3: 自定义 BaseTool 类 (需要复杂逻辑/状态时)
+from langchain_core.tools import BaseTool
+class DatabaseQueryTool(BaseTool):
+    name: str = "db_query"
+    description: str = "执行SQL查询(仅限SELECT)，用于查询业务数据"
+
+    def _run(self, sql: str) -> str:
+        if not sql.strip().upper().startswith("SELECT"):
+            return "错误: 仅允许 SELECT 查询"
+        # 实际项目: engine.execute(sql)
+        return f"查询结果: [{sql}] -> [模拟数据]"
+
+# 工具集合
+ALL_TOOLS = [search_web, calculator, send_email,
+             DatabaseQueryTool()]
+print(f"已注册 {len(ALL_TOOLS)} 个工具")</code></pre>
+</div>
+
+<div class="card">
+<h3><span class="badge">D17-19</span>LangGraph — 有状态的 Agent 编排引擎 <span class="tag t3">架构</span> <span class="tag t4">动手</span></h3>
+
+<h4>LangGraph 核心概念图</h4>
+<div class="mermaid">
+flowchart TB
+    subgraph "StateGraph 状态图"
+        S[State<br/>TypedDict/Pydantic<br/>贯穿全图的共享状态]
+        N1[Node: agent<br/>LLM决策节点<br/>决定调用哪个工具]
+        N2[Node: tools<br/>工具执行节点]
+        E{Conditional Edge<br/>是否有 tool_call?}
+    end
+    subgraph "外部系统"
+        CP[Checkpointer<br/>SQLite/Postgres<br/>状态持久化,支持暂停恢复]
+        HI[Human-in-Loop<br/>中断->审批->恢复]
+    end
+    S --> N1
+    N1 --> E
+    E -->|有tool_call| N2
+    E -->|无,直接回复| END[__end__]
+    N2 --> N1
+    CP -.-> S
+    HI -.-> E
+    style S fill:#a371f733,stroke:#a371f7
+    style N1 fill:#58a6ff33,stroke:#58a6ff
+    style N2 fill:#3fb95033,stroke:#3fb950
+</div>
+
+<h4>完整的 LangGraph ReAct Agent 实现</h4>
+<pre><code># Demo: LangGraph ReAct Agent — 可暂停/恢复/持久化
+from typing import Annotated, Literal
+from typing_extensions import TypedDict
+from langgraph.graph import StateGraph, END
+from langgraph.graph.message import add_messages
+from langgraph.checkpoint.memory import MemorySaver
+from langgraph.checkpoint.sqlite import SqliteSaver
+from langchain_openai import ChatOpenAI
+from langchain_core.messages import HumanMessage, AIMessage, ToolMessage
+import json, sqlite3
+
+# ===== 1. 定义状态 =====
+class AgentState(TypedDict):
+    messages: Annotated[list, add_messages]
+    user_id: str
+    turn_count: int
+
+# ===== 2. 准备 LLM + Tools =====
+llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
+llm_with_tools = llm.bind_tools(ALL_TOOLS)
+
+# ===== 3. 定义节点 =====
+def agent_node(state: AgentState) -> dict:
+    """Agent节点: LLM决策下一步做什么"""
+    response = llm_with_tools.invoke(state["messages"])
+    return {"messages": [response],
+            "turn_count": state.get("turn_count", 0) + 1}
+
+def tool_node(state: AgentState) -> dict:
+    """Tool节点: 执行工具调用并返回结果"""
+    last_message = state["messages"][-1]
+    tool_messages = []
+    for tc in last_message.tool_calls:
+        tool_name = tc["name"]
+        tool_args = tc["args"]
+        tool = next(t for t in ALL_TOOLS if t.name == tool_name)
+        result = tool.invoke(tool_args)
+        tool_messages.append(ToolMessage(
+            content=str(result),
+            tool_call_id=tc["id"],
+            name=tool_name
+        ))
+    return {"messages": tool_messages}
+
+# ===== 4. 路由函数 =====
+def should_continue(state: AgentState) -> Literal["tools", "__end__"]:
+    last_message = state["messages"][-1]
+    if (hasattr(last_message, "tool_calls")
+            and last_message.tool_calls):
+        # 敏感操作可在这里中断
+        for tc in last_message.tool_calls:
+            if tc["name"] == "send_email":
+                print(f"需要审批: 发送邮件给 "
+                      f"{tc['args'].get('to')}")
+        return "tools"
+    return "__end__"
+
+# ===== 5. 构建图 =====
+def build_agent(checkpointer=None):
+    workflow = StateGraph(AgentState)
+    workflow.add_node("agent", agent_node)
+    workflow.add_node("tools", tool_node)
+    workflow.set_entry_point("agent")
+    workflow.add_conditional_edges(
+        "agent", should_continue,
+        {"tools": "tools", "__end__": END}
+    )
+    workflow.add_edge("tools", "agent")
+    return workflow.compile(checkpointer=checkpointer)
+
+# ===== 6. 使用 (支持流式输出) =====
+agent = build_agent(checkpointer=MemorySaver())
+config = {"configurable": {"thread_id": "session-001"}}
+
+print("Agent 启动!\n")
+for event in agent.stream(
+    {"messages": [HumanMessage(
+        content="帮我搜索 LangGraph 最新文档, 然后算 2**10 等于多少"
+    )], "user_id": "user-001"},
+    config=config,
+    stream_mode="values"
+):
+    if "messages" in event:
+        last_msg = event["messages"][-1]
+        if isinstance(last_msg, AIMessage):
+            if last_msg.content:
+                print(f"Agent: {last_msg.content}")
+            if hasattr(last_msg, "tool_calls") and last_msg.tool_calls:
+                for tc in last_msg.tool_calls:
+                    print(f"  调用工具: {tc['name']}"
+                          f"({json.dumps(tc['args'], ensure_ascii=False)})")
+        elif isinstance(last_msg, ToolMessage):
+            print(f"  工具结果: {last_msg.content[:100]}...")
+
+print("\nAgent 执行完成!")
+
+# 状态查询
+# state = agent.get_state(config)
+# history = agent.get_state_history(config)</code></pre>
+</div>
+
+<div class="card">
+<h3><span class="badge">D20-21</span>Multi-Agent Supervisor 模式 <span class="tag t3">架构</span> <span class="tag t4">动手</span></h3>
+
+<h4>Supervisor 模式时序图</h4>
+<div class="mermaid">
+sequenceDiagram
+    actor User as 用户
+    participant Supervisor as Supervisor Agent
+    participant Research as Research Agent
+    participant Coder as Coding Agent
+    participant Writer as Writer Agent
+
+    User->>Supervisor: "写一篇AI Agent趋势报告,含数据和代码"
+    Supervisor->>Supervisor: 分析任务,拆解为子任务
+    Supervisor->>Research: 任务1: 搜索最新趋势和数据
+    Research->>Research: 搜索 + 总结
+    Research-->>Supervisor: 返回调研结果
+    Supervisor->>Coder: 任务2: 编写Agent框架对比代码
+    Coder->>Coder: 编写 + 执行 + 调试
+    Coder-->>Supervisor: 返回代码和运行结果
+    Supervisor->>Writer: 任务3: 整合调研+代码,撰写报告
+    Writer->>Writer: 整合信息,生成Markdown报告
+    Writer-->>Supervisor: 返回完整报告
+    Supervisor-->>User: 最终报告(数据+代码+分析)
+</div>
+
+<h4>Supervisor Agent 代码</h4>
+<pre><code># Demo: Multi-Agent Supervisor 完整实现
+from langgraph.graph import StateGraph, END
+from typing import Annotated, Literal
+from typing_extensions import TypedDict
+
+class MultiAgentState(TypedDict):
+    messages: Annotated[list, add_messages]
+    next_agent: str
+    research_result: str
+    code_result: str
+    final_report: str
+
+llm = ChatOpenAI(model="gpt-4o-mini")
+
+# ===== 子 Agent =====
+def research_agent(state: MultiAgentState) -> dict:
+    """搜索+分析信息"""
+    last_msg = state["messages"][-1].content
+    resp = llm.invoke([HumanMessage(
+        content=f"你是研究员。总结以下主题的关键趋势和数据:\n"
+                f"{last_msg}\n格式: 1.趋势 2.数据 3.来源"
+    )])
+    return {"research_result": resp.content,
+            "messages": [AIMessage(content=f"[Research]: {resp.content}")]}
+
+def coding_agent(state: MultiAgentState) -> dict:
+    """编写+执行代码"""
+    resp = llm.invoke([HumanMessage(
+        content=f"编写完整可运行的 LangGraph Agent 示例代码:\n"
+                f"{state.get('research_result', '通用Agent场景')}\n"
+                f"输出: 1.代码 2.运行指令 3.预期结果"
+    )])
+    return {"code_result": resp.content,
+            "messages": [AIMessage(content=f"[Coder]: {resp.content}")]}
+
+def writer_agent(state: MultiAgentState) -> dict:
+    """整合信息撰写最终报告"""
+    resp = llm.invoke([HumanMessage(
+        content=f"整合以下内容生成Markdown技术报告:\n\n"
+                f"## 研究结果\n{state.get('research_result','N/A')}\n\n"
+                f"## 代码示例\n{state.get('code_result','N/A')}\n\n"
+                f"要求: 标题/摘要/正文/代码/结论"
+    )])
+    return {"final_report": resp.content,
+            "messages": [AIMessage(content=resp.content)]}
+
+# ===== Supervisor 决策 =====
+def supervisor_node(state: MultiAgentState) -> dict:
+    """Supervisor: 分析进度并决策下一步"""
+    prompt = f"""你是Supervisor, 负责任务调度。
+
+可用的子Agent: research, coder, writer, FINISH
+当前进度:
+- research_result: {'已完成' if state.get('research_result') else '未开始'}
+- code_result: {'已完成' if state.get('code_result') else '未开始'}
+- final_report: {'已完成' if state.get('final_report') else '未开始'}
+
+按逻辑顺序决策下一步(只回复agent名称)"""
+    resp = llm.invoke([HumanMessage(content=prompt)])
+    return {"next_agent": resp.content.strip().lower()}
+
+def route_to_agent(state: MultiAgentState) -> str:
+    agent = state.get("next_agent", "research")
+    if agent == "finish": return "__end__"
+    return agent
+
+# ===== 构建图 =====
+def build_supervisor_chain():
+    workflow = StateGraph(MultiAgentState)
+    workflow.add_node("supervisor", supervisor_node)
+    workflow.add_node("research", research_agent)
+    workflow.add_node("coder", coding_agent)
+    workflow.add_node("writer", writer_agent)
+    workflow.set_entry_point("supervisor")
+    workflow.add_conditional_edges(
+        "supervisor", route_to_agent,
+        {"research": "research", "coder": "coder",
+         "writer": "writer", "__end__": END}
+    )
+    workflow.add_edge("research", "supervisor")
+    workflow.add_edge("coder", "supervisor")
+    workflow.add_edge("writer", "supervisor")
+    return workflow.compile()
+
+# 使用
+# agent = build_supervisor_chain()
+# result = agent.invoke({
+#     "messages": [HumanMessage(
+#         content="写一篇关于AI Agent趋势的报告"
+#     )]
+# })
+# print(result.get("final_report"))</code></pre>
+</div>
+</section>
+
+<!-- ====== W4 ====== -->
+<section id="w4">
+<h2>第 4 周：高级 Agent 模式与框架全景对比</h2>
+
+<div class="card">
+<h3><span class="badge">D22-23</span>Agent 框架全景对比 <span class="tag t2">产品</span> <span class="tag t4">动手</span></h3>
+
+<h4>框架对比架构图</h4>
+<div class="mermaid">
+graph TB
+    subgraph "同一任务: 搜索主题 → 写报告"
+        T[用户输入主题]
+    end
+    subgraph "LangGraph (最灵活)"
+        LG[StateGraph] --> LG1[agent] --> LG2[tools] --> LG1
+    end
+    subgraph "CrewAI (最直观)"
+        C1[Researcher Agent] --> C2[Writer Agent]
+    end
+    subgraph "OpenAI Agents SDK (最简洁)"
+        O1[Runner] --> O2[Agent+Tools] --> O3[Handoff]
+    end
+    subgraph "AutoGen (最异步)"
+        A1[UserProxy] --> A2[Assistant]
+    end
+    T --> LG & C1 & O1 & A1
+    style T fill:#f7816633,stroke:#f78166
+</div>
+
+<pre><code># Demo: 同一任务，4 个框架实现对比
+# 任务: 用户输入主题 -> 搜索资料 -> 撰写 Markdown 报告
+
+# ========== LangGraph 实现 (最灵活、最复杂) ==========
+from langgraph.graph import StateGraph, END
+from typing import TypedDict, Annotated
+from langgraph.graph.message import add_messages
+
+class ReportState(TypedDict):
+    messages: Annotated[list, add_messages]
+    research: str
+    report: str
+
+def build_langgraph_report_agent():
+    workflow = StateGraph(ReportState)
+    workflow.add_node("research", research_node)
+    workflow.add_node("write", write_node)
+    workflow.set_entry_point("research")
+    workflow.add_edge("research", "write")
+    workflow.add_edge("write", END)
+    return workflow.compile()
+# 代码量: ~80 行 | 优点: 完全控制流程、生产级特性 | 缺点: 代码量大
+
+
+# ========== CrewAI 实现 (最直观、最快上手) ==========
+from crewai import Agent, Task, Crew, Process
+
+def build_crewai_report_agent():
+    researcher = Agent(
+        role="资深研究员",
+        goal="深入搜索和分析{topic}的最新信息",
+        backstory="你有20年行业研究经验，擅长发现关键趋势和洞见",
+        tools=[search_tool],
+        verbose=True
+    )
+    writer = Agent(
+        role="技术作家",
+        goal="将研究结果整理成清晰易读的Markdown报告",
+        backstory="你擅长将复杂信息转化为结构化的技术文档",
+        verbose=True
+    )
+    research_task = Task(description="研究{topic}", agent=researcher,
+                         expected_output="详细研究报告")
+    write_task = Task(description="基于研究撰写报告", agent=writer,
+                      expected_output="Markdown格式报告")
+    crew = Crew(agents=[researcher, writer], tasks=[research_task, write_task],
+                process=Process.sequential)
+    return crew.kickoff(inputs={"topic": "AI Agent 发展趋势"})
+# 代码量: ~40 行 | 优点: 角色概念直观 | 缺点: 定制性弱
+
+
+# ========== OpenAI Agents SDK (最简洁) ==========
+from agents import Agent, Runner, WebSearchTool
+
+def build_openai_agent():
+    research_agent = Agent(
+        name="Researcher",
+        instructions="搜索并总结关于{topic}的最新信息",
+        tools=[WebSearchTool()],
+        model="gpt-4o-mini"
+    )
+    writer_agent = Agent(
+        name="Writer",
+        instructions="将研究结果整理为Markdown报告",
+        handoffs=[research_agent],
+        model="gpt-4o-mini"
+    )
+    result = Runner.run_sync(writer_agent,
+        "写一篇关于 AI Agent 趋势的报告")
+    return result.final_output
+# 代码量: ~20 行 | 优点: 极简、原生OpenAI | 缺点: 锁定OpenAI生态
+
+
+# ========== 框架选型决策矩阵 ==========
+print("""
+| 场景                       | 推荐框架          | 理由                    |
+|----------------------------|-------------------|-------------------------|
+| 复杂企业Agent系统           | LangGraph         | 完全控制流程、生产级     |
+| 快速原型/Demo               | CrewAI            | 角色概念直观、代码少     |
+| OpenAI生态、简单Agent       | OpenAI Agents SDK | 最简洁、与GPT深度集成    |
+| 微软生态、大规模异步Agent   | AutoGen           | 事件驱动、企业级异步     |
+| 低代码/非技术人员           | Dify / Coze       | 可视化编排、拖拽式开发   |
+""")</code></pre>
+</div>
+
+<div class="card">
+<h3><span class="badge">D24-25</span>Agent 记忆系统 <span class="tag t3">架构</span> <span class="tag t4">动手</span></h3>
+
+<h4>记忆系统架构图</h4>
+<div class="mermaid">
+flowchart TB
+    subgraph "记忆层次"
+        WM[工作记忆 Scratchpad<br/>当前任务中间结果]
+        SM[短期记忆<br/>对话消息列表<br/>当前会话上下文]
+        LM[长期记忆<br/>向量库+摘要<br/>跨会话持久化]
+        EP[情景记忆<br/>完整对话记录<br/>可检索的历史]
+    end
+    subgraph "存储层"
+        MsgList[(消息列表 / 内存)]
+        VDB[(向量数据库<br/>Milvus/Chroma)]
+        SQL[(关系数据库<br/>PostgreSQL)]
+    end
+    WM --> MsgList
+    SM --> MsgList
+    LM --> VDB
+    LM --> SQL
+    EP --> SQL
+    EP --> VDB
+    style WM fill:#3fb95033,stroke:#3fb950
+    style SM fill:#58a6ff33,stroke:#58a6ff
+    style LM fill:#a371f733,stroke:#a371f7
+    style EP fill:#f7816633,stroke:#f78166
+</div>
+
+<pre><code># Demo: 带记忆的个性化 Agent (使用 Mem0)
+from mem0 import Memory
+
+# 初始化 Mem0 长期记忆库
+memory = Memory()
+
+# 存储用户偏好
+memory.add(
+    messages=[
+        {"role": "user", "content": "我是一名后端工程师，喜欢详细的代码解释。"},
+        {"role": "assistant", "content": "好的，我会用代码示例和技术细节来回答。"}
+    ],
+    user_id="user-001"
+)
+
+memory.add(
+    messages=[
+        {"role": "user", "content": "我们公司使用 Python + FastAPI + PostgreSQL 技术栈。"}
+    ],
+    user_id="user-001"
+)
+
+# 后续对话中检索相关记忆
+def get_personalized_response(user_id: str, query: str) -> str:
+    relevant_memories = memory.search(query, user_id=user_id)
+    context = "\n".join([
+        f"用户偏好: {m['memory']}" for m in relevant_memories
+    ])
+    prompt = f"""基于以下用户信息提供个性化回答:
+
+用户背景:
+{context}
+
+用户问题: {query}
+
+请根据用户的背景和偏好来定制你的回答风格和内容。"""
+    return prompt
+
+# 使用示例
+prompt = get_personalized_response("user-001", "如何设计 REST API？")
+# LLM 会记住"后端工程师 + FastAPI 技术栈"，给出定制化答案</code></pre>
+</div>
+
+<div class="card">
+<h3><span class="badge">D26-28</span>Human-in-the-Loop (人机协同) <span class="tag t3">架构</span></h3>
+
+<h4>HITL 时序图</h4>
+<div class="mermaid">
+sequenceDiagram
+    actor User
+    participant Agent
+    participant Checkpointer
+    participant Reviewer as 人工审批者
+
+    User->>Agent: 发送请求
+    Agent->>Agent: 分析任务
+    Agent->>Agent: 决定执行敏感操作
+    Note over Agent: tool_call: delete_database()
+    Agent->>Checkpointer: 保存当前状态(中断点)
+    Agent-->>Reviewer: 请求审批: "是否确认删除数据库 X?"
+    Reviewer->>Reviewer: 审查操作
+    alt 审批通过
+        Reviewer->>Agent: 批准
+        Agent->>Agent: 继续执行操作,完成后续任务
+    else 审批拒绝
+        Reviewer->>Agent: 拒绝
+        Agent->>Agent: 跳过该操作,给出替代建议
+    end
+    Agent-->>User: 返回结果
+</div>
+
+<pre><code># Demo: LangGraph Human-in-the-Loop 实现
+from langgraph.checkpoint.memory import MemorySaver
+from langgraph.types import interrupt
+
+def sensitive_tool_node(state):
+    """在执行敏感操作前中断，等待人工审批"""
+    last_msg = state["messages"][-1]
+    for tc in last_msg.tool_calls:
+        if tc["name"] in ["send_email", "delete_record", "transfer_money"]:
+            # interrupt() 会暂停图执行，返回给调用者
+            approval = interrupt(
+                f"需要审批: {tc['name']}({tc['args']})"
+            )
+            if approval != "approved":
+                return {"messages": [ToolMessage(
+                    content="操作已被拒绝",
+                    tool_call_id=tc["id"]
+                )]}
+    # 正常执行非敏感操作
+    return execute_tools(state)
+
+# ==== 使用流程 ====
+agent = build_agent(checkpointer=MemorySaver())
+config = {"configurable": {"thread_id": "session-001"}}
+
+# 第一次运行 -- 会在敏感操作处暂停
+for event in agent.stream(
+    {"messages": [HumanMessage(
+        content="给 CEO 发邮件汇报项目进度"
+    )]},
+    config
+):
+    pass  # 当遇到 interrupt 时，图自动暂停
+
+# 人工审批后恢复执行
+state = agent.get_state(config)
+print(f"Agent 当前状态: {state.next}")  # 待审批节点
+agent.update_state(config, {"approval": "approved"})  # 注入审批
+for event in agent.stream(None, config):  # 继续执行
+    print(event)</code></pre>
+</div>
+</section>
+
+<!-- ====== W5 ====== -->
+<section id="w5">
+<h2>第 5 周：MCP 协议 & 工具生态 & 可观测性</h2>
+
+<div class="card">
+<h3><span class="badge">D29-30</span>MCP (Model Context Protocol) 深入 <span class="tag t3">架构</span></h3>
+
+<h4>MCP 协议时序图</h4>
+<div class="mermaid">
+sequenceDiagram
+    participant Host as MCP Host<br/>(Claude Code / 你的App)
+    participant Client as MCP Client
+    participant Server as MCP Server<br/>(你的工具服务)
+
+    Note over Host,Server: === 初始化阶段 ===
+    Host->>Client: 启动
+    Client->>Server: initialize(协议版本, 能力声明)
+    Server-->>Client: capabilities: {tools, resources, prompts}
+    Client->>Server: initialized
+
+    Note over Host,Server: === 工具发现 ===
+    Host->>Client: 列出可用工具
+    Client->>Server: tools/list
+    Server-->>Client: [{name, description, inputSchema}]
+
+    Note over Host,Server: === 工具调用 ===
+    Host->>Client: 执行工具
+    Client->>Server: tools/call {name: "query_db", arguments: {...}}
+    Server->>Server: 执行实际逻辑<br/>(查数据库 / 调API / 读文件)
+    Server-->>Client: {content: [{type: "text", text: "查询结果"}]}
+    Client-->>Host: 返回工具执行结果
+
+    Note over Host,Server: === 资源访问 ===
+    Host->>Client: 读取资源
+    Client->>Server: resources/read {uri: "db://sales/schema"}
+    Server-->>Client: {contents: [{uri, text: "表结构..."}]}
+</div>
+
+<h4>MCP Server 完整实现</h4>
+<pre><code># Demo: 构建完整的 MCP Server (企业数据库查询工具)
+# 文件名: mcp_db_server.py | 运行: python mcp_db_server.py
+import asyncio, json
+from mcp.server import Server, NotificationOptions
+from mcp.server.models import InitializationCapabilities
+from mcp.server.stdio import stdio_server
+from mcp.types import Tool, TextContent, Resource
+
+# 创建 MCP Server 实例
+server = Server("enterprise-db-tools")
+
+# ===== 定义工具列表 =====
+@server.list_tools()
+async def list_tools() -> list[Tool]:
+    """声明这个 Server 提供哪些工具"""
+    return [
+        Tool(
+            name="query_database",
+            description="执行 SQL 查询(仅限SELECT)。查询销售/用户/订单等业务数据。",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "sql": {
+                        "type": "string",
+                        "description": "SQL SELECT 查询语句"
+                    },
+                    "database": {
+                        "type": "string",
+                        "enum": ["sales", "users", "orders"],
+                        "description": "要查询的数据库"
+                    }
+                },
+                "required": ["sql", "database"]
+            }
+        ),
+        Tool(
+            name="get_table_schema",
+            description="获取数据库表结构，包括字段名、类型和注释",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "database": {"type": "string"},
+                    "table": {"type": "string"}
+                },
+                "required": ["database", "table"]
+            }
+        ),
+    ]
+
+# ===== 处理工具调用 =====
+@server.call_tool()
+async def call_tool(name: str, arguments: dict) -> list[TextContent]:
+    """处理工具调用请求"""
+    if name == "get_table_schema":
+        # 实际项目中从数据库 information_schema 读取
+        schemas = {
+            "sales": {
+                "orders": "orders(id INT PK, customer_id INT, amount DECIMAL, "
+                          "status VARCHAR, created_at TIMESTAMP)",
+                "products": "products(id INT PK, name VARCHAR, price DECIMAL, "
+                            "category VARCHAR)"
+            },
+            "users": {
+                "customers": "customers(id INT PK, name VARCHAR, email VARCHAR, "
+                             "level VARCHAR, created_at TIMESTAMP)"
+            }
+        }
+        schema = schemas.get(arguments["database"], {}).get(
+            arguments["table"], "表不存在"
+        )
+        return [TextContent(type="text",
+                text=f"表 {arguments['database']}.{arguments['table']}:\n{schema}")]
+
+    elif name == "query_database":
+        sql = arguments["sql"]
+        if not sql.strip().upper().startswith("SELECT"):
+            return [TextContent(type="text", text="错误: 仅允许 SELECT 查询")]
+        # 实际项目中用 SQLAlchemy 执行查询
+        return [TextContent(type="text",
+                text=f"查询结果:\nSQL: {sql}\n数据库: {arguments['database']}"
+                     f"\n[返回 42 行数据]")]
+
+    return [TextContent(type="text", text=f"未知工具: {name}")]
+
+# ===== 定义资源 =====
+@server.list_resources()
+async def list_resources() -> list[Resource]:
+    """声明可访问的数据资源"""
+    return [
+        Resource(uri="db://sales/schema", name="销售数据库Schema",
+                 description="销售数据库的所有表结构",
+                 mimeType="application/json"),
+        Resource(uri="db://users/schema", name="用户数据库Schema",
+                 description="用户数据库的所有表结构",
+                 mimeType="application/json"),
+    ]
+
+@server.read_resource()
+async def read_resource(uri: str) -> str:
+    schemas = {
+        "db://sales/schema": json.dumps({
+            "database": "sales",
+            "tables": ["orders", "products", "invoices"]
+        }, indent=2, ensure_ascii=False),
+        "db://users/schema": json.dumps({
+            "database": "users",
+            "tables": ["customers", "employees"]
+        }, indent=2, ensure_ascii=False),
+    }
+    return schemas.get(uri, json.dumps({"error": "资源不存在"}))
+
+# ===== 启动 Server =====
+async def main():
+    async with stdio_server() as (read_stream, write_stream):
+        await server.run(
+            read_stream, write_stream,
+            InitializationCapabilities(
+                sampling={}, experimental={},
+                tools={}, resources={}
+            ),
+            notification_options=NotificationOptions()
+        )
+
+if __name__ == "__main__":
+    asyncio.run(main())</code></pre>
+
+<div class="highlight">
+<strong>配置到 Claude Code 中使用</strong> — 在 <code>.claude/settings.json</code> 中添加:
+<pre><code>{
+  "mcpServers": {
+    "enterprise-db": {
+      "command": "python",
+      "args": ["mcp_db_server.py"]
+    }
+  }
+}</code></pre>
+然后在 Claude Code 中直接说 "帮我查一下 sales 数据库的 orders 表结构" 即可自动调用你的 MCP Server。
+</div>
+</div>
+
+<div class="card">
+<h3><span class="badge">D31-32</span>企业工具生态矩阵 <span class="tag t2">产品</span></h3>
+<table>
+<tr><th>类别</th><th>工具/服务</th><th>集成方式</th><th>典型 Agent 场景</th></tr>
+<tr><td>数据库</td><td>PostgreSQL, MySQL, MongoDB, Elasticsearch, BigQuery</td><td>MCP / LangChain Tool</td><td>业务数据查询、报表生成、数据洞察</td></tr>
+<tr><td>消息协作</td><td>Slack, Teams, Gmail, Jira, Notion, 企业微信</td><td>REST API -> Tool封装</td><td>自动发消息、创建工单、写文档</td></tr>
+<tr><td>代码执行</td><td>GitHub, GitLab, E2B Sandbox, Python REPL</td><td>API / MCP / Sandbox</td><td>代码审查、自动修Bug、执行脚本</td></tr>
+<tr><td>搜索</td><td>Tavily, Brave Search, Exa, SerpAPI, Bing</td><td>API -> Tool封装</td><td>实时信息检索、竞品分析、市场调研</td></tr>
+<tr><td>文件存储</td><td>S3, Google Drive, SharePoint, 本地FS</td><td>MCP / SDK</td><td>文档管理、数据管道、备份</td></tr>
+<tr><td>浏览器</td><td>Playwright, Puppeteer, Browserbase</td><td>MCP / Tool</td><td>Web抓取、表单填写、自动化测试</td></tr>
+<tr><td>云服务</td><td>AWS, GCP, Azure 全系服务</td><td>SDK -> Tool / MCP</td><td>基础设施管理、日志查询、资源调度</td></tr>
+</table>
+</div>
+
+<div class="card">
+<h3><span class="badge">D33-35</span>Agent 可观测性三大支柱 <span class="tag t3">架构</span> <span class="tag t4">动手</span></h3>
+
+<h4>可观测性架构图</h4>
+<div class="mermaid">
+flowchart LR
+    subgraph "Agent 运行时"
+        A[Agent 调用]
+    end
+    subgraph "1. Tracing 追踪"
+        T1[LangSmith/Arize]
+        T2[每次调用的输入/输出/耗时/Token]
+        T3[调用链可视化]
+    end
+    subgraph "2. Evaluation 评估"
+        E1[RAGAS/DeepEval]
+        E2[忠实度/相关性/精确率]
+        E3[质量门禁]
+    end
+    subgraph "3. Monitoring 监控"
+        M1[Grafana+Prometheus]
+        M2[成本看板/错误率/延迟]
+        M3[告警通知]
+    end
+    A --> T1 --> T2 --> T3
+    A --> E1 --> E2 --> E3
+    A --> M1 --> M2 --> M3
+    style A fill:#58a6ff33
+</div>
+
+<pre><code># Demo: Agent 可观测性三件套 - Tracing + Evaluation + Monitoring
+import os, time
+from langsmith import traceable
+from collections import defaultdict
+from dataclasses import dataclass, field
+
+# ===== 1. Tracing: LangSmith 自动追踪 =====
+# 设置: export LANGCHAIN_TRACING_V2=true
+#       export LANGCHAIN_API_KEY=ls_xxx
+
+@traceable(run_type="chain", name="enterprise_qa")
+def answer_question(question: str, context_docs: list[str]) -> dict:
+    """每次调用的输入/输出/耗时/token自动记录到LangSmith"""
+    from langchain_openai import ChatOpenAI
+    llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
+    context = "\n\n".join(context_docs)
+    prompt = f"基于以下文档回答问题:\n{context}\n\n问题: {question}"
+    response = llm.invoke(prompt)
+    return {
+        "answer": response.content,
+        "source_count": len(context_docs)
+    }
+
+
+# ===== 2. Evaluation: RAGAS 自动质量评估 =====
+from ragas import evaluate
+from ragas.metrics import (
+    faithfulness, answer_relevancy,
+    context_precision, context_recall
+)
+from datasets import Dataset
+
+def evaluate_rag_quality(test_cases: list[dict]):
+    """对 RAG 系统进行批量质量评估"""
+    eval_data = {
+        "question": [tc["question"] for tc in test_cases],
+        "answer": [tc["answer"] for tc in test_cases],
+        "contexts": [tc["contexts"] for tc in test_cases],
+        "ground_truth": [tc.get("ground_truth", "")
+                         for tc in test_cases],
+    }
+    dataset = Dataset.from_dict(eval_data)
+    result = evaluate(dataset, metrics=[
+        faithfulness, answer_relevancy,
+        context_precision, context_recall
+    ])
+
+    print("=" * 50)
+    print("RAG 质量评估报告")
+    print(f"  Faithfulness(忠实度):       {result['faithfulness']:.2%}")
+    print(f"  Answer Relevancy(答案相关): {result['answer_relevancy']:.2%}")
+    print(f"  Context Precision(精确率):  {result['context_precision']:.2%}")
+    print(f"  Context Recall(召回率):     {result['context_recall']:.2%}")
+
+    # 质量门禁: 忠实度低于 80% 时告警
+    if result['faithfulness'] < 0.8:
+        print("  WARNING: 忠实度低于80%, 需优化RAG pipeline!")
+    return result
+
+
+# ===== 3. Monitoring: Token用量和成本监控 =====
+@dataclass
+class CostTracker:
+    """实时追踪 Token 用量和费用, 超阈值告警"""
+    daily_usage: defaultdict = field(
+        default_factory=lambda: defaultdict(float)
+    )
+    # (input价格, output价格) 每百万token美元价
+    cost_per_1m: dict = field(default_factory=lambda: {
+        "gpt-4o": (2.50, 10.00),
+        "gpt-4o-mini": (0.15, 0.60),
+        "claude-opus-4": (15.00, 75.00),
+        "deepseek-v3": (0.27, 1.10),
+    })
+    alert_threshold: float = 50.0  # 单日费用超过$50告警
+
+    def record_call(self, model: str, input_tokens: int,
+                    output_tokens: int) -> dict:
+        in_p, out_p = self.cost_per_1m.get(model, (1.0, 5.0))
+        cost = ((input_tokens / 1_000_000) * in_p +
+                (output_tokens / 1_000_000) * out_p)
+        today = time.strftime("%Y-%m-%d")
+        self.daily_usage[today] += cost
+
+        if self.daily_usage[today] > self.alert_threshold:
+            print(f"ALERT: 今日费用 ${self.daily_usage[today]:.2f} "
+                  f"已超过阈值 ${self.alert_threshold}!")
+
+        return {
+            "cost": round(cost, 6),
+            "daily_total": round(self.daily_usage[today], 2)
+        }
+
+    def report(self):
+        print("\n=== TOKEN 费用报告 ===")
+        for day, cost in sorted(self.daily_usage.items()):
+            bar = "#" * int(cost / 2)
+            print(f"  {day}: ${cost:.2f} {bar}")
+
+
+# ==== 使用示例 ====
+# tracker = CostTracker()
+# tracker.record_call("gpt-4o", 5000, 2000)
+# tracker.record_call("deepseek-v3", 10000, 3000)
+# tracker.report()
+
+# ==== Grafana 监控面板配置(基于Prometheus metrics) ====
+# 在 Agent 代码中暴露 metrics:
+# from prometheus_client import Counter, Histogram, Gauge
+# token_usage = Counter('agent_token_usage_total',
+#                       'Total tokens used', ['model'])
+# request_latency = Histogram('agent_request_duration_seconds',
+#                             'Request latency')
+# daily_cost = Gauge('agent_daily_cost_dollars',
+#                    'Daily cost in USD')
+#
+# 然后用 Grafana 可视化这些指标</code></pre>
+</div>
+</section>
+
+<!-- ====== W6 ====== -->
+<section id="w6">
+<h2>第 6 周：AI 产品架构 & 企业级平台设计</h2>
+
+<div class="card">
+<h3><span class="badge">D36-37</span>AI 产品设计方法 <span class="tag t2">产品</span></h3>
+
+<h4>AI 产品 vs 传统产品</h4>
+<table>
+<tr><th>维度</th><th>传统产品</th><th>AI 产品</th></tr>
+<tr><td>输出确定性</td><td>确定(同样输入->同样输出)</td><td>概率性(同样输入可能不同输出)</td></tr>
+<tr><td>质量度量</td><td>功能正确/错误(二元)</td><td>好/中/差(连续谱,主观性强)</td></tr>
+<tr><td>用户体验</td><td>点击、表单、导航</td><td>对话、生成、推荐、协同</td></tr>
+<tr><td>失败模式</td><td>Error/Crash(可预知)</td><td>Hallucination/Bias/Drift(难穷举)</td></tr>
+<tr><td>迭代速度</td><td>周/月级</td><td>天/周级(模型频繁更新)</td></tr>
+</table>
+
+<h4>AI 产品需求评估框架</h4>
+<pre><code># Demo: AI 可行性评估工具
+from pydantic import BaseModel
+from enum import Enum
+
+class AIFeasibility(str, Enum):
+    HIGH = "high"
+    MEDIUM = "medium"
+    LOW = "low"
+    NONE = "none"
+
+class AIProjectAssessment(BaseModel):
+    """AI 项目可行性评估模型"""
+    problem: str
+    is_structured: bool = False
+    tolerance_for_error: float = 0.0  # 0-1
+    latency_requirement_ms: int = 5000
+    has_training_data: bool = False
+    human_in_loop_possible: bool = True
+
+    def assess(self) -> dict:
+        score = 0
+        reasons = []
+        if not self.is_structured:
+            score += 3; reasons.append("非结构化数据->LLM优势明显")
+        if self.tolerance_for_error > 0.1:
+            score += 2; reasons.append("容错度高->适合概率性AI输出")
+        if self.latency_requirement_ms > 500:
+            score += 1; reasons.append("延迟要求宽松")
+        if self.has_training_data:
+            score += 2; reasons.append("有训练数据->可微调优化")
+        if self.human_in_loop_possible:
+            score += 2; reasons.append("可人机协同->降低风险")
+
+        recommendations = {
+            7: (AIFeasibility.HIGH, "强烈推荐使用AI方案"),
+            4: (AIFeasibility.MEDIUM, "AI可行,建议与传统方案对比"),
+            2: (AIFeasibility.LOW, "AI不是最佳选择,考虑传统方案"),
+            0: (AIFeasibility.NONE, "不需要AI,传统方案更合适"),
+        }
+        for threshold, (feas, rec) in recommendations.items():
+            if score >= threshold:
+                return {"feasibility": feas, "score": score,
+                        "reasons": reasons, "recommendation": rec}
+        return {"feasibility": AIFeasibility.NONE, "score": 0}
+
+# 使用示例
+# assessment = AIProjectAssessment(
+#     problem="自动分类客户工单到5个类别",
+#     is_structured=False, tolerance_for_error=0.15,
+# )
+# print(assessment.assess())</code></pre>
+</div>
+
+<div class="card">
+<h3><span class="badge">D38-39</span>企业级 AI 平台架构 <span class="tag t3">架构</span></h3>
+
+<h4>企业 AI 平台完整架构图</h4>
+<div class="mermaid">
+graph TB
+    subgraph "接入层 Access Layer"
+        A1[Web App]
+        A2[Mobile App]
+        A3[Third-party API]
+        A4[IDE Plugin]
+        A5[Slack/Teams Bot]
+    end
+
+    subgraph "AI Gateway"
+        G1[统一API入口<br/>FastAPI + Kong]
+        G2[认证鉴权<br/>OAuth2 / API Key / SSO]
+        G3[Rate Limiting<br/>Token Bucket]
+        G4[负载均衡<br/>轮询+最少连接]
+        G5[Prompt Caching<br/>语义缓存 GPTCache]
+        G6[Cost Tracking<br/>实时费用计算]
+    end
+
+    subgraph "Agent 编排层 Orchestration"
+        O1[Workflow Engine<br/>LangGraph Server]
+        O2[Multi-Agent Scheduler<br/>Supervisor Pattern]
+        O3[Human-in-Loop<br/>审批+中断恢复]
+        O4[State Manager<br/>Redis+PostgreSQL]
+        O5[Error Recovery<br/>重试+Fallback+熔断]
+    end
+
+    subgraph "知识层 Knowledge"
+        K1[文档解析<br/>PDF/Word/OCR/HTML]
+        K2[向量数据库<br/>Milvus/Qdrant]
+        K3[知识图谱<br/>Neo4j+GraphRAG]
+        K4[RAG Pipeline<br/>检索+Rerank+生成]
+    end
+
+    subgraph "工具层 Tool Ecosystem"
+        T1[MCP Server Registry]
+        T2[Code Sandbox<br/>E2B/Docker]
+        T3[Database Connectors]
+        T4[API Integrations]
+    end
+
+    subgraph "可观测性 Observability"
+        OBS1[Tracing<br/>LangSmith/Arize]
+        OBS2[Evaluation<br/>RAGAS/DeepEval]
+        OBS3[Monitoring<br/>Grafana+Prometheus]
+        OBS4[Alerting<br/>费用/错误率告警]
+    end
+
+    subgraph "安全治理 Governance"
+        SEC1[Content Filter<br/>Guardrails/NeMo]
+        SEC2[PII Detection<br/>Presidio脱敏]
+        SEC3[Audit Logging]
+        SEC4[RBAC权限控制]
+    end
+
+    A1 & A2 & A3 & A4 & A5 --> G1
+    G1 --> G2 --> G3 --> G4
+    G4 --> G5 --> G6
+    G6 --> O1
+    O1 --> O2 & O3 & O4 & O5
+    O1 <--> K4
+    K4 <--> K1 & K2 & K3
+    O2 --> T1
+    T1 --> T2 & T3 & T4
+    O1 -.-> OBS1
+    OBS1 --> OBS2 & OBS3 --> OBS4
+    G1 -.-> SEC1 & SEC2 & SEC3 & SEC4
+</div>
+
+<h4>AI Gateway 核心实现 (FastAPI + LiteLLM)</h4>
+<pre><code># Demo: 企业级 AI Gateway — 统一入口、认证、限流、成本追踪
+from fastapi import FastAPI, HTTPException, Depends, Header
+from pydantic import BaseModel
+import litellm, time
+from collections import defaultdict
+
+app = FastAPI(title="Enterprise AI Gateway", version="1.0.0")
+
+# ==== 数据模型 ====
+class ChatRequest(BaseModel):
+    model: str = "gpt-4o-mini"
+    messages: list[dict]
+    temperature: float = 0.7
+    max_tokens: int = 4096
+
+class ChatResponse(BaseModel):
+    id: str; model: str; content: str
+    usage: dict; cost: float; latency_ms: float
+
+# ==== API Key 认证 ====
+VALID_KEYS = {"sk-enterprise-001": "tenant-a", "sk-enterprise-002": "tenant-b"}
+
+def verify_api_key(authorization: str = Header(...)):
+    api_key = authorization.replace("Bearer ", "")
+    if api_key not in VALID_KEYS:
+        raise HTTPException(status_code=401, detail="Invalid API Key")
+    return VALID_KEYS[api_key]
+
+# ==== Token Bucket 限流 ====
+class TokenBucket:
+    def __init__(self, rate=60, capacity=120):
+        self.rate = rate; self.capacity = capacity
+        self.tokens = capacity; self.last_refill = time.time()
+
+    def consume(self, tokens=1) -> bool:
+        now = time.time()
+        elapsed = now - self.last_refill
+        self.tokens = min(self.capacity, self.tokens + elapsed * self.rate)
+        self.last_refill = now
+        if self.tokens >= tokens:
+            self.tokens -= tokens; return True
+        return False
+
+rate_limiters: dict[str, TokenBucket] = defaultdict(
+    lambda: TokenBucket(rate=60)
+)
+
+# ==== 定价表 ====
+PRICING = {
+    "gpt-4o": (2.50, 10.00), "gpt-4o-mini": (0.15, 0.60),
+    "claude-sonnet-4-6": (3.00, 15.00), "claude-opus-4-7": (15.00, 75.00),
+    "deepseek-v3": (0.27, 1.10), "gemini-2.5-flash": (0.15, 0.60),
+}
+
+def calc_cost(model: str, inp: int, out: int) -> float:
+    in_p, out_p = PRICING.get(model, (1.0, 5.0))
+    return (inp/1_000_000)*in_p + (out/1_000_000)*out_p
+
+# ==== 核心 API ====
+@app.post("/v1/chat/completions", response_model=ChatResponse)
+async def chat(req: ChatRequest, tenant=Depends(verify_api_key)):
+    # 1. Rate Limit
+    if not rate_limiters[tenant].consume(5):
+        raise HTTPException(429, detail="Rate limit exceeded")
+
+    # 2. 调用 LLM (LiteLLM 统一接口 + 自动Fallback)
+    start = time.perf_counter()
+    try:
+        response = await litellm.acompletion(
+            model=req.model, messages=req.messages,
+            temperature=req.temperature, max_tokens=req.max_tokens,
+            fallbacks=[{"model": "gpt-4o-mini"}]
+        )
+    except Exception as e:
+        raise HTTPException(500, detail=f"LLM Error: {e}")
+
+    latency = (time.perf_counter() - start) * 1000
+    usage = response.usage
+    cost = calc_cost(req.model, usage.prompt_tokens,
+                     usage.completion_tokens)
+
+    # 3. 审计日志
+    print(f"[AUDIT] tenant={tenant} model={req.model} "
+          f"in={usage.prompt_tokens} out={usage.completion_tokens} "
+          f"cost=${cost:.6f} latency={latency:.0f}ms")
+
+    return ChatResponse(
+        id=response.id, model=req.model,
+        content=response.choices[0].message.content,
+        usage={"input": usage.prompt_tokens,
+               "output": usage.completion_tokens},
+        cost=cost, latency_ms=latency
+    )
+
+# 启动: uvicorn gateway:app --host 0.0.0.0 --port 8000</code></pre>
+</div>
+
+<div class="card">
+<h3><span class="badge">D40-42</span>AI 平台 MVP 全栈部署 <span class="tag t4">动手</span></h3>
+<pre><code># docker-compose.yml — 企业 AI 平台 MVP 一键部署
+version: '3.8'
+services:
+  # AI Gateway: 统一LLM入口
+  gateway:
+    build: ./gateway
+    ports: ["8000:8000"]
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - REDIS_URL=redis://redis:6379
+    depends_on: [redis]
+
+  # Agent 引擎: LangGraph 工作流
+  agent-engine:
+    build: ./agent-engine
+    ports: ["8001:8001"]
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - DATABASE_URL=postgresql://user:pass@postgres:5432/agents
+      - LANGSMITH_API_KEY=${LANGSMITH_API_KEY}
+    depends_on: [postgres]
+
+  # 知识库服务: RAG Pipeline
+  knowledge-hub:
+    build: ./knowledge-hub
+    ports: ["8002:8002"]
+    environment:
+      - MILVUS_HOST=milvus
+      - MILVUS_PORT=19530
+    depends_on: [milvus]
+
+  # 向量数据库 (带GPU加速可选)
+  milvus:
+    image: milvusdb/milvus:v2.4.0
+    ports: ["19530:19530", "9091:9091"]
+    volumes: ["./milvus_data:/var/lib/milvus"]
+
+  # 关系数据库 (带pgvector扩展)
+  postgres:
+    image: pgvector/pgvector:pg16
+    ports: ["5432:5432"]
+    environment:
+      POSTGRES_USER: user; POSTGRES_PASSWORD: pass
+      POSTGRES_DB: agents
+    volumes: ["./pgdata:/var/lib/postgresql/data"]
+
+  # 缓存: 限流计数器 + 语义缓存
+  redis:
+    image: redis:7-alpine
+    ports: ["6379:6379"]
+
+  # 前端: Streamlit / Next.js 界面
+  frontend:
+    build: ./frontend
+    ports: ["3000:3000"]
+    depends_on: [gateway, agent-engine, knowledge-hub]
+
+  # 监控: Grafana 仪表盘
+  grafana:
+    image: grafana/grafana:latest
+    ports: ["3001:3000"]
+    volumes: ["./grafana_dashboards:/etc/grafana/provisioning/dashboards"]
+
+# 启动: docker-compose up -d
+# Gateway: http://localhost:8000/docs
+# 前端: http://localhost:3000
+# Grafana: http://localhost:3001 (admin/admin)</code></pre>
+</div>
+</section>
+
+<!-- ====== W7 ====== -->
+<section id="w7">
+<h2>第 7 周：企业级实战场景 — 6 大 AI 应用</h2>
+
+<div class="card">
+<h3>6 大企业 AI 场景全景</h3>
+<table>
+<tr><th>#</th><th>场景</th><th>业务痛点</th><th>AI 方案</th><th>关键技术栈</th></tr>
+<tr><td>1</td><td><strong>智能客服</strong></td><td>人工成本高、响应慢、知识更新滞后</td><td>RAG知识库 + 意图路由 + 人工转接</td><td>RAG, Intent Classification, Sentiment Analysis, Human Handoff</td></tr>
+<tr><td>2</td><td><strong>代码审查Agent</strong></td><td>Code Review耗时、遗漏安全漏洞</td><td>PR Diff分析 + 安全扫描 + 自动Review Comment</td><td>GitHub Webhook, AST Analysis, Code Execution Sandbox</td></tr>
+<tr><td>3</td><td><strong>数据分析Agent</strong></td><td>业务人员不会SQL、数据分析师瓶颈</td><td>Text-to-SQL + 自动可视化 + 洞察生成</td><td>NL2SQL, Pandas/Spark, ECharts/Matplotlib</td></tr>
+<tr><td>4</td><td><strong>文档自动化</strong></td><td>合同审查、报告生成手动耗时</td><td>文档理解 + 信息提取 + 自动生成</td><td>OCR, Layout Analysis, Template Filling, Validation</td></tr>
+<tr><td>5</td><td><strong>运维Agent</strong></td><td>告警风暴、故障定位慢</td><td>告警分析 + 自动诊断 + Runbook执行</td><td>Log Analysis, APM集成, PagerDuty对接</td></tr>
+<tr><td>6</td><td><strong>内部AI工作台</strong></td><td>员工在多个系统间切换低效</td><td>统一Agent接入所有内部系统</td><td>MCP, SSO, Enterprise Search, Workflow Automation</td></tr>
+</table>
+</div>
+
+<div class="card">
+<h3><span class="badge">D43-45</span>场景1: 智能客服系统 <span class="tag t4">动手</span></h3>
+
+<h4>智能客服架构时序图</h4>
+<div class="mermaid">
+sequenceDiagram
+    actor Customer
+    participant Router as 意图路由器
+    participant FAQ as FAQ Agent<br/>(RAG)
+    participant Order as 订单查询Agent
+    participant Human as 人工客服
+
+    Customer->>Router: "我的订单怎么还没到？"
+    Router->>Router: 意图识别: 订单查询
+    Router->>Order: 路由到订单Agent
+    Order->>Order: 查询订单状态
+    Order-->>Customer: "您的订单#12345预计明天送达"
+
+    Customer->>Router: "这个产品质量太差了，我要投诉！"
+    Router->>Router: 意图识别: 投诉 + 负面情绪
+    Note over Router: Sentiment: Negative
+    Router->>Human: 自动升级到人工客服
+    Human-->>Customer: "您好，我是客服专员..."
+</div>
+
+<pre><code># Demo: 智能客服 — 意图路由 + RAG + 情绪检测 + 人工转接
+from langchain_openai import ChatOpenAI
+from langchain_core.prompts import ChatPromptTemplate
+from enum import Enum
+import re
+
+class Intent(str, Enum):
+    FAQ = "faq"
+    ORDER_QUERY = "order_query"
+    COMPLAINT = "complaint"
+    HUMAN = "human"
+
+llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
+
+# ==== 1. 意图识别 Router ====
+async def classify_intent(user_message: str) -> dict:
+    prompt = ChatPromptTemplate.from_messages([("system", """
+你是客服意图分类器。分析用户消息并输出JSON:
+{
+  "intent": "faq|order_query|complaint|human",
+  "sentiment": "positive|neutral|negative",
+  "urgency": 1-5,
+  "summary": "用户意图简述"
+}
+
+分类规则:
+- faq: 询问产品信息、使用方法、政策等一般问题
+- order_query: 查询订单状态、物流、退换货
+- complaint: 投诉、不满、要求赔偿
+- human: 明确要求转人工客服
+- 当 sentiment为negative且urgency>=4时, intent自动设为human
+"""), ("user", "{message}")])
+
+    resp = await llm.ainvoke(prompt.format(message=user_message))
+    import json
+    result = json.loads(resp.content)
+    # 强制规则: 高紧急度负面情绪直接转人工
+    if result["sentiment"] == "negative" and result["urgency"] >= 4:
+        result["intent"] = "human"
+    return result
+
+# ==== 2. FAQ Agent (RAG知识库) ====
+async def handle_faq(question: str, rag_system) -> str:
+    """查询知识库回答常见问题"""
+    result = rag_system.query(question, top_k=3, use_rerank=True)
+    return f"{result['answer']}\n\n参考来源: {len(result['sources'])} 个相关文档"
+
+# ==== 3. 订单查询 Agent ====
+async def handle_order_query(user_id: str, message: str) -> str:
+    """从消息中提取订单号并查询"""
+    # 提取订单号
+    order_match = re.search(r'#?\d{5,}', message)
+    if order_match:
+        order_id = order_match.group()
+        # 实际项目中查询数据库
+        # order = db.query(f"SELECT * FROM orders WHERE id={order_id}")
+        return f"订单 {order_id} 状态: 配送中, 预计明天到达。"
+    return "请提供您的订单号(5位数字), 方便我为您查询。"
+
+# ==== 4. 投诉处理 Agent ====
+async def handle_complaint(user_id: str, message: str) -> str:
+    """记录投诉并根据严重程度决定是否转人工"""
+    # 实际项目中创建工单到 Jira/Zendesk
+    ticket_id = f"TKT-{hash(message) % 100000:05d}"
+    return (f"我已记录您的反馈(工单号: {ticket_id}), "
+            f"专员将在2小时内与您联系。")
+
+# ==== 5. 主编排器 ====
+async def customer_service_router(user_id: str, message: str, rag_system) -> str:
+    intent_info = await classify_intent(message)
+    print(f"[路由] Intent={intent_info['intent']}, "
+          f"Sentiment={intent_info['sentiment']}, "
+          f"Urgency={intent_info['urgency']}")
+
+    handlers = {
+        Intent.FAQ: lambda: handle_faq(message, rag_system),
+        Intent.ORDER_QUERY: lambda: handle_order_query(user_id, message),
+        Intent.COMPLAINT: lambda: handle_complaint(user_id, message),
+        Intent.HUMAN: lambda: "正在为您转接人工客服, 请稍候...",
+    }
+    handler = handlers.get(intent_info["intent"])
+    if handler:
+        return await handler()
+    return "抱歉, 我没有理解您的问题, 请重新描述或输入'人工'转接客服。"
+
+# 使用: response = await customer_service_router("user-001", "我的订单#12345在哪?", rag)</code></pre>
+</div>
+
+<div class="card">
+<h3><span class="badge">D46-47</span>场景2: AI 代码审查 Agent <span class="tag t4">动手</span></h3>
+
+<pre><code># Demo: AI 代码审查 Agent — PR Diff 分析 + 安全扫描
+import os, json
+from typing import Optional
+from github import Github
+
+class AICodeReviewer:
+    """AI 代码审查 Agent: 接收PR -> 分析Diff -> 生成Review"""
+
+    def __init__(self, github_token: str):
+        self.gh = Github(github_token)
+        self.llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
+
+    def review_pr(self, repo_name: str, pr_number: int) -> list[dict]:
+        """审查指定 PR"""
+        repo = self.gh.get_repo(repo_name)
+        pr = repo.get_pull(pr_number)
+        files = pr.get_files()
+
+        reviews = []
+        for file in files:
+            if file.filename.endswith(('.py', '.js', '.ts', '.java', '.go')):
+                result = self._analyze_diff(file.filename, file.patch)
+                if result["issues"]:
+                    reviews.append(result)
+
+        # 生成审查摘要
+        summary = self._generate_summary(reviews)
+        return {"summary": summary, "file_reviews": reviews}
+
+    def _analyze_diff(self, filename: str, patch: str) -> dict:
+        """分析单个文件的 diff"""
+        prompt = f"""你是资深代码审查专家。审查以下代码变更。
+
+文件: {filename}
+变更内容:
+{patch}
+
+请检查:
+1. 安全漏洞 (SQL注入, XSS, 硬编码密钥, 不安全反序列化)
+2. 逻辑错误 (空指针, 边界条件, 竞态条件)
+3. 性能问题 (N+1查询, 不必要的循环, 内存泄漏)
+4. 代码规范 (命名, 注释, SOLID原则)
+
+输出JSON格式:
+{{
+  "issues": [
+    {{"severity": "critical|high|medium|low",
+      "line": 行号,
+      "category": "类别",
+      "description": "问题描述",
+      "suggestion": "修改建议"}}
+  ],
+  "overall_score": 1-10
+}}
+只输出JSON, 如果没问题返回 {{"issues":[], "overall_score":10}}"""
+
+        resp = self.llm.invoke(prompt)
+        try:
+            return json.loads(resp.content)
+        except json.JSONDecodeError:
+            return {"issues": [], "overall_score": 0, "error": "解析失败"}
+
+    def _generate_summary(self, reviews: list[dict]) -> str:
+        """生成审查总结"""
+        all_issues = []
+        for r in reviews:
+            all_issues.extend(r.get("issues", []))
+
+        critical = sum(1 for i in all_issues if i["severity"] == "critical")
+        high = sum(1 for i in all_issues if i["severity"] == "high")
+
+        return (f"代码审查完成: 发现 {len(all_issues)} 个问题 "
+                f"({critical} 严重, {high} 高危)")
+
+# ==== GitHub Webhook 集成 ====
+# 监听 PR 事件, 自动触发审查
+from fastapi import FastAPI, Request
+webhook_app = FastAPI()
+
+@webhook_app.post("/webhook/github")
+async def github_webhook(request: Request):
+    body = await request.json()
+    if body.get("action") in ["opened", "synchronize"]:
+        pr_number = body["pull_request"]["number"]
+        repo_name = body["repository"]["full_name"]
+
+        reviewer = AICodeReviewer(os.getenv("GITHUB_TOKEN"))
+        result = reviewer.review_pr(repo_name, pr_number)
+
+        # 自动发布 Review Comment
+        # pr = reviewer.gh.get_repo(repo_name).get_pull(pr_number)
+        # pr.create_review(
+        #     body=result["summary"],
+        #     event="COMMENT"
+        # )
+        return result
+    return {"status": "ignored"}</code></pre>
+</div>
+
+<div class="card">
+<h3><span class="badge">D48-49</span>场景3-6: 数据Agent + 内部工作台 <span class="tag t4">动手</span></h3>
+
+<h4>场景3: Text-to-SQL 数据分析 Agent</h4>
+<pre><code># Demo: Text-to-SQL Agent — 自然语言 -> SQL -> 执行 -> 可视化
+from langchain_openai import ChatOpenAI
+import sqlite3
+
+class TextToSQLAgent:
+    """自然语言转 SQL 数据分析 Agent"""
+
+    def __init__(self, db_path: str):
+        self.llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
+        self.conn = sqlite3.connect(db_path)
+        self.schema = self._get_schema()
+
+    def _get_schema(self) -> str:
+        """读取数据库所有表结构"""
+        cursor = self.conn.cursor()
+        tables = cursor.execute(
+            "SELECT name FROM sqlite_master WHERE type='table'"
+        ).fetchall()
+
+        schema_parts = []
+        for (table,) in tables:
+            cols = cursor.execute(f"PRAGMA table_info({table})").fetchall()
+            cols_str = ", ".join(
+                f"{c[1]} {c[2]}" for c in cols
+            )
+            schema_parts.append(f"  {table}({cols_str})")
+        return "\n".join(schema_parts)
+
+    def query(self, question: str) -> dict:
+        """自然语言 -> SQL -> 执行 -> 结果"""
+        prompt = f"""你是SQL专家。数据库Schema:
+{self.schema}
+
+用户问题: {question}
+
+规则:
+1. 只生成SELECT语句
+2. 不要使用DROP/ALTER/DELETE/INSERT/UPDATE
+3. 如果问题涉及数据安全, 返回拒绝原因
+4. 使用适当的聚合函数和JOIN
+5. 输出JSON: {{"sql": "...", "explanation": "..."}}"""
+
+        resp = self.llm.invoke(prompt)
+        import json
+        result = json.loads(resp.content)
+        sql = result["sql"]
+
+        # 安全检查
+        dangerous = ["DROP", "DELETE", "INSERT", "UPDATE", "ALTER", "CREATE"]
+        if any(kw in sql.upper() for kw in dangerous):
+            return {"error": "不允许执行非SELECT语句", "sql": sql}
+
+        try:
+            cursor = self.conn.cursor()
+            cursor.execute(sql)
+            rows = cursor.fetchall()
+            columns = [d[0] for d in cursor.description]
+            return {
+                "sql": sql,
+                "explanation": result["explanation"],
+                "columns": columns,
+                "data": rows,
+                "row_count": len(rows)
+            }
+        except Exception as e:
+            return {"error": str(e), "sql": sql}
+
+# 使用:
+# agent = TextToSQLAgent("enterprise.db")
+# result = agent.query("上个月每个部门的销售额是多少?按销售额降序排列")
+# print(json.dumps(result, indent=2, ensure_ascii=False))
+</code></pre>
+
+<h4>场景6: 内部 AI 工作台 (MCP 多工具集成)</h4>
+<pre><code># Demo: 内部 AI 工作台 — Agent 连接所有企业系统
+# Agent 可以: 查Jira工单 + 读GitHub代码 + 查数据库 + 发Slack消息
+
+# 注册所有企业工具为 Agent Tools
+from langchain_core.tools import tool
+
+@tool
+def jira_lookup(issue_key: str) -> str:
+    """查询Jira工单详情。输入工单号如 PROJ-1234。"""
+    # 实际项目中调用 Jira REST API
+    return f"工单 {issue_key}: 登录Bug修复, 状态: In Progress, 负责人: 张三"
+
+@tool
+def github_search_code(repo: str, query: str) -> str:
+    """在GitHub仓库中搜索代码。输入仓库名和搜索关键词。"""
+    # 实际项目中调用 GitHub Search API
+    return f"在 {repo} 中搜索 '{query}': 找到3个相关文件"
+
+@tool
+def db_query(sql: str) -> str:
+    """查询企业数据库(仅限SELECT)。"""
+    if not sql.strip().upper().startswith("SELECT"):
+        return "错误: 仅允许SELECT查询"
+    # 实际执行SQL
+    return f"查询结果: [{sql}] -> 返回5行数据"
+
+@tool
+def slack_message(channel: str, message: str) -> str:
+    """发送Slack消息到指定频道。"""
+    # 实际项目中调用 Slack Web API
+    return f"消息已发送到 #{channel}"
+
+# 所有工具注册
+ALL_TOOLS = [jira_lookup, github_search_code, db_query, slack_message]
+
+# Agent 使用示例:
+# 用户: "PROJ-1234 这个Bug相关的代码在哪? 把文件路径发到 #dev-team"
+# Agent 流程:
+#   1. jira_lookup("PROJ-1234") -> 获取Bug描述
+#   2. github_search_code("myapp", "login bug") -> 搜索相关代码
+#   3. slack_message("dev-team", "PROJ-1234 相关代码: src/auth/login.py") -> 发消息</code></pre>
+</div>
+</section>
+
+<!-- ====== W8 ====== -->
+<section id="w8">
+<h2>第 8 周：综合项目 & 职业跃迁</h2>
+
+<div class="card">
+<h3><span class="badge">D50-54</span>毕业项目: Enterprise AI Workbench <span class="tag t3">架构</span> <span class="tag t4">动手</span></h3>
+
+<h4>项目架构总览</h4>
+<div class="mermaid">
+graph TB
+    subgraph "Enterprise AI Workbench"
+        UI[管理后台 UI<br/>Next.js / Streamlit]
+        GW[AI Gateway<br/>FastAPI + LiteLLM]
+        AS[Agent Studio<br/>LangGraph编排+可视化]
+        KH[Knowledge Hub<br/>RAG + 向量库 + KG]
+        TH[Tool Hub<br/>MCP Server管理+沙箱]
+        OB[Observability<br/>Tracing+评估+监控]
+        AD[Admin<br/>用户管理+RBAC+审计]
+    end
+    UI --> GW
+    GW --> AS
+    AS --> KH
+    AS --> TH
+    AS -.-> OB
+    GW -.-> AD
+    style UI fill:#58a6ff33
+    style GW fill:#a371f733
+    style AS fill:#3fb95033
+</div>
+
+<h4>项目目录结构</h4>
+<pre><code>enterprise-ai-workbench/
+├── gateway/                 # AI Gateway 服务
+│   ├── main.py              # FastAPI 入口
+│   ├── auth.py              # 认证鉴权 (OAuth2 + API Key)
+│   ├── rate_limiter.py      # Token Bucket 限流
+│   ├── cost_tracker.py      # 费用追踪
+│   └── Dockerfile
+├── agent-studio/            # Agent 编排引擎
+│   ├── engine.py            # LangGraph 工作流引擎
+│   ├── supervisor.py        # Multi-Agent Supervisor
+│   ├── agents/              # 预置 Agent 模板
+│   │   ├── customer_service.py
+│   │   ├── code_reviewer.py
+│   │   └── data_analyst.py
+│   ├── hitl.py              # Human-in-the-Loop 模块
+│   └── Dockerfile
+├── knowledge-hub/           # 知识管理
+│   ├── ingestion.py         # 文档解析 + 向量化
+│   ├── retrieval.py         # 检索 + 重排序
+│   ├── graph_rag.py         # Graph RAG 模块
+│   └── Dockerfile
+├── tool-hub/                # 工具管理
+│   ├── mcp_registry.py      # MCP Server 注册/发现
+│   ├── sandbox.py           # E2B/Docker 代码沙箱
+│   └── builtin_tools/       # 内置工具
+│       ├── search.py
+│       ├── database.py
+│       └── email.py
+├── frontend/                # 前端界面
+│   ├── src/pages/
+│   ├── src/components/
+│   └── Dockerfile
+├── docker-compose.yml       # 一键部署
+├── .env.example             # 环境变量模板
+└── README.md                # 项目文档 + 架构图
+</code></pre>
+
+<h4>核心集成代码: 全链路串联</h4>
+<pre><code># gateway/main.py — 全链路串联入口
+from fastapi import FastAPI
+from agent_studio.engine import AgentEngine
+from knowledge_hub.retrieval import RAGPipeline
+from tool_hub.mcp_registry import MCPRegistry
+
+app = FastAPI(title="Enterprise AI Workbench")
+agent_engine = AgentEngine()
+rag_pipeline = RAGPipeline()
+mcp_registry = MCPRegistry()
+
+@app.post("/api/chat")
+async def chat(request: ChatRequest):
+    """统一对话入口: Gateway -> Agent -> RAG -> Tools"""
+    # 1. 加载用户的知识库
+    knowledge = await rag_pipeline.search(
+        request.query, user_id=request.user_id
+    )
+
+    # 2. 获取用户可用的工具
+    tools = await mcp_registry.get_tools_for_user(
+        request.user_id
+    )
+
+    # 3. 创建 Agent 并执行
+    agent = agent_engine.create_agent(
+        tools=tools,
+        knowledge_base=knowledge,
+        user_context=request.context
+    )
+    response = await agent.run(request.query)
+    return response
+
+# 启动: docker-compose up -d
+# 访问: http://localhost:8000/docs</code></pre>
+</div>
+
+<div class="card">
+<h3><span class="badge">D55-56</span>职业跃迁准备 <span class="tag t2">产品</span></h3>
+
+<h4>AI 产品经理能力补充</h4>
+<table>
+<tr><th>能力</th><th>学习资源</th><th>实践方式</th></tr>
+<tr><td>用户研究 (JTBD)</td><td>《Jobs to Be Done》理论, Intercom 博客</td><td>为一个AI功能做5个用户访谈,写需求分析报告</td></tr>
+<tr><td>AI 产品分析</td><td>拆解 Notion AI, Cursor, Perplexity, Gamma, Monica</td><td>每周写1篇AI产品拆解文章(技术架构+产品逻辑)</td></tr>
+<tr><td>数据驱动决策</td><td>AI产品核心指标: DAU, 留存, Token成本, 用户满意度</td><td>为你的Demo项目搭建数据看板</td></tr>
+<tr><td>PRD 撰写</td><td>Silicon Valley Product Group 模板</td><td>为一个AI功能写完整PRD(含技术可行性评估)</td></tr>
+</table>
+
+<h4>AI 架构师能力补充</h4>
+<table>
+<tr><th>能力</th><th>关键技术</th><th>深度方向</th></tr>
+<tr><td>LLM 推理优化</td><td>vLLM, TensorRT-LLM, llama.cpp</td><td>Quantization (GPTQ/AWQ), Speculative Decoding, Continuous Batching</td></tr>
+<tr><td>成本优化</td><td>Prompt Caching (Anthropic), Semantic Cache (GPTCache), Batch API</td><td>Model Router (小模型处理简单问题), 缓存命中率优化</td></tr>
+<tr><td>高可用架构</td><td>Multi-Model Fallback, Circuit Breaker, 灰度发布</td><td>99.9% SLA 的 AI 服务架构设计</td></tr>
+<tr><td>安全合规</td><td>NeMo Guardrails, Presidio PII检测, 审计日志</td><td>SOC2/ISO27001 在AI系统中的落地</td></tr>
+</table>
+
+<h4>作品集 Checklist</h4>
+<ul class="checklist">
+<li>GitHub Profile 整理: 所有Demo仓库 + 清晰的README + 架构图</li>
+<li>技术博客: 每周1篇 (推荐掘金/Medium/个人博客)</li>
+<li>Portfolio 网站: 展示项目、技能、思考</li>
+<li>演讲/分享: 在公司或社区做一次 AI Agent 主题分享</li>
+<li>毕业项目: Enterprise AI Workbench 完整代码 + 演示视频</li>
+<li>简历更新: 突出 AI Agent / RAG / MCP / 平台架构 经验</li>
+</ul>
+</div>
+</section>
+
+<!-- ====== 能力图谱 ====== -->
+<section id="skill">
+<h2>能力图谱 (8周后)</h2>
+
+<div class="card">
+<h3>AI 开发工程师 <span class="tag t4">核心</span></h3>
+<table>
+<tr><th>能力项</th><th>目标水平</th><th>衡量标准</th></tr>
+<tr><td>LLM API调用</td><td><div class="skill-bar"><div class="skill-fill" style="width:95%"></div></div></td><td>5分钟内接入任意模型,处理streaming/error/retry</td></tr>
+<tr><td>Prompt Engineering</td><td><div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div></td><td>能设计复杂prompt模板,A/B测试优化效果</td></tr>
+<tr><td>RAG系统</td><td><div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div></td><td>独立搭建企业文档RAG,评估优化检索质量</td></tr>
+<tr><td>Agent开发(LangGraph)</td><td><div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div></td><td>能设计Multi-Agent系统,含HITL</td></tr>
+<tr><td>MCP协议</td><td><div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div></td><td>能自建MCP Server,集成到AI平台</td></tr>
+<tr><td>向量数据库</td><td><div class="skill-bar"><div class="skill-fill" style="width:75%"></div></div></td><td>熟练使用ChromaDB/Milvus,理解索引算法差异</td></tr>
+</table>
+</div>
+
+<div class="card">
+<h3>AI 产品经理 <span class="tag t2">进阶</span></h3>
+<table>
+<tr><th>能力项</th><th>目标水平</th><th>衡量标准</th></tr>
+<tr><td>AI产品分析</td><td><div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div></td><td>能分析任意AI产品的技术架构和产品逻辑</td></tr>
+<tr><td>需求评估</td><td><div class="skill-bar"><div class="skill-fill" style="width:75%"></div></div></td><td>判断需求是否适合AI方案,估算成本和ROI</td></tr>
+<tr><td>PRD撰写</td><td><div class="skill-bar"><div class="skill-fill" style="width:70%"></div></div></td><td>能写出技术可行的AI功能PRD</td></tr>
+<tr><td>AI UX设计</td><td><div class="skill-bar"><div class="skill-fill" style="width:70%"></div></div></td><td>理解对话式交互、人机协同、渐进式披露模式</td></tr>
+</table>
+</div>
+
+<div class="card">
+<h3>AI 产品架构师 <span class="tag t3">目标</span></h3>
+<table>
+<tr><th>能力项</th><th>目标水平</th><th>衡量标准</th></tr>
+<tr><td>平台架构设计</td><td><div class="skill-bar"><div class="skill-fill" style="width:75%"></div></div></td><td>能设计企业AI平台完整架构(Gateway+Agent+Knowledge+Tool)</td></tr>
+<tr><td>技术选型决策</td><td><div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div></td><td>能根据企业需求做出合理模型/框架/基础设施选型</td></tr>
+<tr><td>成本估算(TCO)</td><td><div class="skill-bar"><div class="skill-fill" style="width:75%"></div></div></td><td>估算企业AI平台总成本(Token+推理+运维+人力)</td></tr>
+<tr><td>安全合规</td><td><div class="skill-bar"><div class="skill-fill" style="width:65%"></div></div></td><td>了解AI安全风险和合规要求(SOC2/数据隐私)</td></tr>
+</table>
+</div>
+</section>
+
+<!-- ====== 概念词汇表 ====== -->
+<section id="glossary">
+<h2>核心概念词汇表 (面试/方案/交流必备)</h2>
+<div class="card">
+<div style="display:flex;flex-wrap:wrap;gap:6px">
+<span class="tag t1">Token</span>
+<span class="tag t1">Tokenizer (BPE)</span>
+<span class="tag t1">Context Window</span>
+<span class="tag t1">Embedding</span>
+<span class="tag t1">Vector Database</span>
+<span class="tag t1">Cosine Similarity</span>
+<span class="tag t1">RAG</span>
+<span class="tag t1">Chunking</span>
+<span class="tag t1">Re-ranking</span>
+<span class="tag t1">Hallucination</span>
+<span class="tag t1">Few-Shot Prompting</span>
+<span class="tag t1">Chain-of-Thought (CoT)</span>
+<span class="tag t1">ReAct</span>
+<span class="tag t1">Function Calling</span>
+<span class="tag t1">Tool Use</span>
+<span class="tag t1">Agent</span>
+<span class="tag t1">Multi-Agent System</span>
+<span class="tag t1">LangChain (LCEL)</span>
+<span class="tag t1">LangGraph (StateGraph)</span>
+<span class="tag t1">MCP (Model Context Protocol)</span>
+<span class="tag t1">MCP Server / Client / Host</span>
+<span class="tag t1">AI Gateway</span>
+<span class="tag t1">Prompt Caching</span>
+<span class="tag t2">Streaming (SSE)</span>
+<span class="tag t2">Token Cost / TCO</span>
+<span class="tag t2">Guardrails</span>
+<span class="tag t2">Human-in-the-Loop</span>
+<span class="tag t2">Observability (3 Pillars)</span>
+<span class="tag t2">Tracing</span>
+<span class="tag t2">RAGAS</span>
+<span class="tag t2">Semantic Search</span>
+<span class="tag t2">HyDE</span>
+<span class="tag t2">Graph RAG</span>
+<span class="tag t2">Model Router / Fallback</span>
+<span class="tag t3">Rate Limiting (Token Bucket)</span>
+<span class="tag t3">TTFT / TPS</span>
+<span class="tag t3">Fine-tuning (LoRA/QLoRA)</span>
+<span class="tag t3">RLHF / DPO</span>
+<span class="tag t3">Quantization (GPTQ/AWQ)</span>
+<span class="tag t3">vLLM / TensorRT-LLM</span>
+<span class="tag t3">Speculative Decoding</span>
+<span class="tag t4">Dify / Coze</span>
+<span class="tag t4">CrewAI / AutoGen</span>
+<span class="tag t4">LangSmith / Arize</span>
+<span class="tag t4">GPTCache / Semantic Cache</span>
+<span class="tag t5">E2B Sandbox</span>
+<span class="tag t5">Mem0 / Letta (MemGPT)</span>
+</div>
+</div>
+</section>
+
+<!-- ====== 学习资源索引 ====== -->
+<section>
+<h2>学习资源索引</h2>
+
+<div class="card">
+<h3>必读官方文档</h3>
+<table>
+<tr><th>类别</th><th>资源</th><th>链接/搜索词</th></tr>
+<tr><td>LLM API</td><td>OpenAI API Docs</td><td>platform.openai.com/docs</td></tr>
+<tr><td>LLM API</td><td>Anthropic Claude Docs</td><td>docs.anthropic.com</td></tr>
+<tr><td>Prompt</td><td>Anthropic Prompt Engineering Guide</td><td>docs.anthropic.com/prompt-engineering</td></tr>
+<tr><td>Prompt</td><td>OpenAI Prompt Engineering Guide</td><td>platform.openai.com/docs/guides/prompt-engineering</td></tr>
+<tr><td>RAG</td><td>LangChain RAG Tutorial</td><td>python.langchain.com/docs/tutorials/rag/</td></tr>
+<tr><td>RAG</td><td>LlamaIndex Documentation</td><td>docs.llamaindex.ai</td></tr>
+<tr><td>Agent</td><td>LangGraph Tutorials</td><td>langchain-ai.github.io/langgraph/tutorials/</td></tr>
+<tr><td>Agent</td><td>CrewAI Documentation</td><td>docs.crewai.com</td></tr>
+<tr><td>Agent</td><td>OpenAI Agents SDK</td><td>openai.github.io/openai-agents-python/</td></tr>
+<tr><td>MCP</td><td>Model Context Protocol Spec</td><td>modelcontextprotocol.io</td></tr>
+<tr><td>MCP</td><td>MCP Python SDK</td><td>github.com/modelcontextprotocol/python-sdk</td></tr>
+<tr><td>Gateway</td><td>LiteLLM Documentation</td><td>docs.litellm.ai</td></tr>
+<tr><td>Evaluation</td><td>RAGAS Documentation</td><td>docs.ragas.io</td></tr>
+<tr><td>低代码</td><td>Dify Documentation</td><td>docs.dify.ai</td></tr>
+<tr><td>推理</td><td>vLLM Documentation</td><td>docs.vllm.ai</td></tr>
+</table>
+</div>
+
+<div class="card">
+<h3>推荐 GitHub 仓库 (学习源码)</h3>
+<table>
+<tr><th>仓库</th><th>学什么</th></tr>
+<tr><td><strong>langchain-ai/langgraph</strong></td><td>Agent 编排的工业级实现, 图执行引擎</td></tr>
+<tr><td><strong>anthropics/anthropic-cookbook</strong></td><td>Claude 最佳实践, MCP 示例, Prompt 技巧</td></tr>
+<tr><td><strong>openai/openai-cookbook</strong></td><td>OpenAI 最佳实践, RAG, Function Calling 示例</td></tr>
+<tr><td><strong>crewAIInc/crewAI</strong></td><td>Multi-Agent 框架设计思路, 角色扮演模式</td></tr>
+<tr><td><strong>microsoft/autogen</strong></td><td>异步 Agent 架构, 事件驱动, 企业级模式</td></tr>
+<tr><td><strong>BerriAI/litellm</strong></td><td>多模型统一网关, 成本管理, 负载均衡</td></tr>
+<tr><td><strong>run-llama/llama_index</strong></td><td>RAG 框架, 数据连接器, 高级检索策略</td></tr>
+<tr><td><strong>deepset-ai/haystack</strong></td><td>NLP Pipeline 设计, RAG 组件化架构</td></tr>
+<tr><td><strong>vllm-project/vllm</strong></td><td>LLM 推理引擎, Continuous Batching, PagedAttention</td></tr>
+<tr><td><strong>langfuse/langfuse</strong></td><td>LLM 应用可观测性, Tracing, 开源替代 LangSmith</td></tr>
+<tr><td><strong>mem0ai/mem0</strong></td><td>Agent 长期记忆管理, 个性化上下文</td></tr>
+</table>
+</div>
+</section>
+
+<!-- ====== 每周节奏 ====== -->
+<section>
+<h2>每周学习节奏模板</h2>
+<div class="card">
+<table>
+<tr><th>时间段</th><th>周一-周五 (每天4h)</th><th>周六 (6-8h)</th><th>周日 (2-4h)</th></tr>
+<tr><td><strong>上午 (2h)</strong></td><td>学习新概念 / 阅读文档 / 看教程</td><td rowspan="2">完整 Demo 开发<br/>大块时间集中写代码</td><td rowspan="2">复盘本周学习<br/>写博客文章<br/>规划下周内容</td></tr>
+<tr><td><strong>晚上 (2h)</strong></td><td>写代码 / 做 Demo / 调试 / 实验</td></tr>
+</table>
+<div class="warning">
+<strong>节奏提示:</strong> 不要追求100%完成度。每周完成核心Demo即可推进,细节可以在后续项目实践中回补。关键是保持连贯性和输出节奏。每周至少产出一个可运行的Demo + 一篇技术文章。
+</div>
+</div>
+</section>
+
+<footer>
+<p>8 周, 从 Python 基础到企业级 AI 平台架构</p>
+<p style="margin-top:6px">关键不是学完所有东西, 而是建立起 <strong style="color:#58a6ff">"看到需求就能设计出 AI 方案"</strong> 的能力</p>
+<p style="margin-top:6px;color:#8b949e">包含: 完整代码 Demo + Mermaid 架构图 + 时序图 + 企业级实战场景</p>
+<p style="margin-top:6px;color:#8b949e">Generated 2026-05-27 | 持续迭代中</p>
+</footer>
+
+</div>
+</body>
+</html>
+
